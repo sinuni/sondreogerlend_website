@@ -1,0 +1,41 @@
+CREATE TABLE element(
+    id          SERIAL PRIMARY KEY NOT NULL,
+    filename    text NOT NULL,
+    date        date NOT NULL,
+    type        varchar(32),
+    tag         text,
+    text        text
+);
+
+CREATE TABLE image(
+    id      SERIAL PRIMARY KEY,
+    name    varchar(50) NOT NULL,
+    date    date NOT NULL,
+    tag     varchar(100),
+    travel  varchar(100)
+);
+
+CREATE TABLE video(
+    id      SERIAL PRIMARY KEY,
+    videoid varchar(50) NOT NULL,
+    name    varchar(50) NOT NULL,
+    date    date NOT NULL,
+    time    time NOT NULL,
+    tag     varchar(100),
+    travel  varchar(100)
+);
+
+CREATE TABLE post(
+    id      SERIAL PRIMARY KEY,
+    name    varchar(50) NOT NULL,
+    html    text NOT NULL,
+    date    date NOT NULL,
+    tag     varchar(100),
+    travel  varchar(100),
+    time    time NOT NULL
+);
+
+CREATE TABLE travel(
+    name     varchar(100) PRIMARY KEY
+    selected boolean NOT NULL
+);
