@@ -24,11 +24,12 @@
                 <hr/>
               </div>
             % } elsif (exists $elm->{'videoid'}) {
-              <a href="#">
+              <a href="#" onClick="_gaq.push(['_trackEvent', 'Video', 'Click', '<%= $elm->{'videoid'} %>']);">
                 <img class="youtube" videoid="<%= $elm->{'videoid'} %>" src="http://img.youtube.com/vi/<%= $elm->{'videoid'} %>/2.jpg"/>
               </a>
             % } else {
-            <a rel="gallery" href="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/<%= $elm->{'name'} %>">
+            <a rel="gallery" href="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/<%= $elm->{'name'} %>"
+                    onClick="_gaq.push(['_trackEvent', 'Image_Home', 'Click', '<%= $elm->{'name'} %>']);">
                 <img  src="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/thumbs/thumb_<%= $elm->{'name'} %>"/>
             </a>
             % }

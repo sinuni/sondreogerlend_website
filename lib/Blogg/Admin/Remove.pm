@@ -17,6 +17,20 @@ sub index {
     $self->render('/admin/remove/images');
 }
 
+sub videos {
+    my $self = shift;
+    $self->redirect_to('/admin/login') unless $self->session('user');
+
+    Db::connect('blogg', 'tiro', 'kokid8Ei');
+
+    my $videos = Db::getVideos();
+    $self->stash(videos => $videos);
+    Db::disconnect();
+
+    # Render template "example/welcome.html.ep" with message
+    $self->render('/admin/remove/videos');
+}
+
 sub posts {
     my $self = shift;
     $self->redirect_to('/admin/login') unless $self->session('user');
@@ -59,6 +73,18 @@ sub imagesByName {
     $self->redirect_to('/admin/remove');
 }
 
+sub videosByVideoId {
+    my $self = shift;
+
+    my @videoIds = $self->param('videos[]');
+
+    Db::connect('blogg', 'tiro', 'kokid8Ei');
+    Db::rmVideosByVideoIds(\@videoIds);
+    Db::disconnect();
+
+    $self->redirect_to('/admin/remove');
+}
+
 sub postsById {
     my $self = shift;
 
@@ -67,13 +93,13 @@ sub postsById {
     Db::connect('blogg', 'tiro', 'kokid8Ei');
     my $htmls = Db::getHtmlFromPostId(\@postIds);
     my @img2rm;
+
+    # remove images in posts
     foreach my $html (values %$htmls) {
-        $self->app->log->debug("---: $html");
         while($html =~ /img src="(.+)" alt/g) {
             my $path = $1;
             $path =~ s/ /\\ /g;
             $path =~ s/^\//public\//;
-            $self->app->log->debug("---: $path");
             push @img2rm, $path;
         }
     }

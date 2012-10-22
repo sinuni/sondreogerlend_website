@@ -26,6 +26,17 @@ sub addPost {
         or die "Cannot execute statment: $DBI::errstr\n";
 }
 
+sub getPosts {
+    my $sth = $dbh->prepare("SELECT id, name, date, tag, travel FROM post");
+    $sth->execute or die "Cannot execute statment: $DBI::errstr\n";
+
+    my $posts = {};
+    while (my ($id, $name, $date, $tag, $travel) = $sth->fetchrow_array()) {
+        push @{$posts->{$date}}, {'id' => $id, 'name' => $name, 'tag' => $tag, 'travel' => $travel};
+    }
+    return $posts;
+}
+
 sub addVideo {
     die "addVideo takes fore arguments, \$title, \$videoid, \$tag and \$travel\n" unless @_ == 4;
     my ($title, $videoid, $tag, $travel) = @_;
@@ -35,6 +46,18 @@ sub addVideo {
     $sth->execute($title, $videoid, $tag, $travel)
         or die "Cannot execute statment: $DBI::errstr\n";
 }
+
+sub getVideos {
+    my $sth = $dbh->prepare("SELECT name, videoid, date, tag, travel FROM video");
+    $sth->execute or die "Cannot execute statment: $DBI::errstr\n";
+
+    my $videos = {};
+    while (my ($name, $videoid, $date, $tag, $travel) = $sth->fetchrow_array()) {
+        push @{$videos->{$date}}, {'name' => $name, 'videoid' => $videoid, 'tag' => $tag, 'travel' => $travel};
+    }
+    return $videos;
+}
+
 
 sub getNamesTagsAndTravels {
     die "getNamesAndTags takes one argument, \\\@names\n" unless @_ == 1;
@@ -123,18 +146,6 @@ sub getImagesForEachTag {
     return $images;
 }
 
-sub getPosts {
-    my $sth = $dbh->prepare("SELECT id, name, date, tag, travel FROM post");
-    $sth->execute or die "Cannot execute statment: $DBI::errstr\n";
-
-    my $posts = {};
-    while (my ($id, $name, $date, $tag, $travel) = $sth->fetchrow_array()) {
-        push @{$posts->{$date}}, {'id' => $id, 'name' => $name, 'tag' => $tag, 'travel' => $travel};
-    }
-    return $posts;
-    
-}
-
 sub getHtmlFromPostId {
     die "getHtmlFromPostId takes one argument, \\\@ids\n" unless @_ == 1;
     my $ids = shift;
@@ -161,14 +172,25 @@ sub rmPostsByIds {
     }
 }
 
+sub rmVideosByVideoIds {
+    die "rmVideosByVideoIds takes one argument, \\\@videoids\n" unless @_ == 1;
+    my $ids = shift;
+    my $sth = $dbh->prepare("DELETE FROM video WHERE videoid=?")
+        or die "Connot prepare statment: $DBI::errstr\n";
+    
+    foreach my $id (@$ids) {
+        $sth->execute($id) or die "Cannot execute statment: $DBI::errstr\n";
+    }
+}
+
 sub getImagesAndPosts {
-    my $imgSth = $dbh->prepare("SELECT name, date, tag, travel FROM image");
+    my $imgSth = $dbh->prepare("SELECT name, date, tag, travel FROM image order by date desc limit 40");
     $imgSth->execute or die "Cannot execute statment: $DBI::errstr\n";
 
-    my $postSth = $dbh->prepare("SELECT name, html,  date, tag, travel FROM post order by time desc");
+    my $postSth = $dbh->prepare("SELECT name, html,  date, tag, travel FROM post order by date desc, time desc limit 8");
     $postSth->execute or die "Cannot execute statment: $DBI::errstr\n";
 
-    my $videoSth = $dbh->prepare("SELECT name, videoid, date, tag, travel FROM video order by time desc");
+    my $videoSth = $dbh->prepare("SELECT name, videoid, date, tag, travel FROM video order by date desc, time desc limit 10");
     $videoSth->execute or die "Cannot execute statment: $DBI::errstr\n";
 
     my $elements = {};

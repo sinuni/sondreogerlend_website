@@ -16,6 +16,13 @@
   <body>
     <div class="container">
       <div class="row">
+      <div class="spann0">
+        <ul class="nav nav-tabs nav-stacked sidebar-nav-fixed" style="background: #ffffff">
+          <li><a href="#"><i class="icon-chevron-right"></i>Månde1</a></li>
+          <li><a href="#"><i class="icon-chevron-right"></i>Månde2</a></li>
+          <li><a href="#"><i class="icon-chevron-right"></i>Månde3</a></li>
+        </ul>
+      </div>
         <div class="span10 offset1" style="background: white;">
           <div id="imgSlider" class="carousel slide">
             <div class="carousel-inner">

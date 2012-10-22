@@ -30,8 +30,10 @@ sub startup {
   $r->post('/admin/newTravel')->to('admin#newTravel');
   $r->get('/admin/remove')->to('admin-remove#index');
   $r->get('/admin/remove/posts')->to('admin-remove#posts');
+  $r->get('/admin/remove/videos')->to('admin-remove#videos');
   $r->post('/admin/remove/imagesbyname')->to('admin-remove#imagesByName');
   $r->post('/admin/remove/postsbyid')->to('admin-remove#postsById');
+  $r->post('/admin/remove/videosbyvideoid')->to('admin-remove#videosByVideoId');
   $r->get('/admin/editor')->to('admin-editor#index');
   $r->post('/admin/editor/uploadImage')->to('admin-editor#uploadImage');
   $r->post('/admin/editor/uploadHtml')->to('admin-editor#uploadHtml');
