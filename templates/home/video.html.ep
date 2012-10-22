@@ -1,0 +1,3 @@
+<video controls>
+  <source type="video/webm" src="/videos/<%= $videofile %>"/>
+</video>

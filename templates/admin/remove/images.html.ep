@@ -1,0 +1,49 @@
+% layout 'simple';
+% title 'Remove Images';
+
+<div id="remove" class="well">
+<p><input type="button" id="rmbutton" value="Remove" class="btn btn-danger pull-right"/></p>
+</div>
+
+<div id="have" class="well">
+    % foreach my $date (sort {$b cmp $a} keys %$images) {
+        % foreach my $elm ( @{$images->{$date}} ) {
+            <img id="<%= $elm->{'name'} %>" onclick="changeContainer('<%= $elm->{'name'} %>')"  src="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/thumbs/thumb_<%= $elm->{'name'} %>"/>
+        % }
+    % }
+</div>
+<h1 id="test"></h1>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+var img2rm = [];
+
+function changeContainer(imgId) {
+    var img = document.getElementById(imgId);
+    if (img.parentNode.id === "have") {
+        newContainerId = "remove";
+        img2rm.push(imgId);
+    }
+    else {
+        newContainerId = "have";
+        img2rm.splice(img2rm.indexOf(imgId), 1);
+    }
+    var newContainer = document.getElementById(newContainerId);
+
+    document.getElementById("test").innerHTML = JSON.stringify(img2rm);
+    img.parentNode.removeChild(img);
+    newContainer.appendChild(img);
+}
+
+$(function() {
+    $('#rmbutton').click(function () {
+        var postData = { 'images' : img2rm };
+        $.post(
+            "/admin/remove/imagesbyname",
+            postData
+        );
+        location.reload();
+    });
+    
+});
+</script>

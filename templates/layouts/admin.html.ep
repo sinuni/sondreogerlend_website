@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8"/> 
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-image-gallery.min.css">
+    <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="span10 offset1 ">
+          <h1>Admin</h1>
+            <h3>Selected travel:</h3>
+            <form method="post" action="/admin/newTravel">
+            <select id="travelSelect" onclick="setSelectedTravel();">
+              % foreach my $travel (@$travels) {
+                  % if ($travel eq $selected) {
+                    <option selected="selected"><%= $travel %></option>
+                  % } else {
+                    <option><%= $travel %></option>
+                  % }
+              % }
+            </select>
+                <input type="text" name="newtravel" placeholder="New travel"/>
+                <input type="submit" value="Add" class="btn btn-primary"/>
+            </form>
+
+          <%= content %>
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+    function setSelectedTravel() {
+        var hidden = document.getElementById('selectedTravel');
+        var select = document.getElementById('travelSelect');
+
+        hidden.value = select.options[select.selectedIndex].text;
+        var test = document.getElementById('test');
+        test.innerHTML = hidden.value;
+    }
+    </script>
+
+  </body>
+</html>

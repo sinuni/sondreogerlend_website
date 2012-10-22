@@ -1,0 +1,16 @@
+% layout 'default';
+% title 'Albums';
+
+<ul class="thumbnails">
+% foreach my $tag (keys %$images) {
+  <li class="span1.5">
+    <h4><%= $tag %></h4>
+    <a rel="gallery" href="/album?tag=<%= $tag %>" class="thumbnail">
+        <img  src="/images/<%= $images->{$tag}->[0]->{'travel'} %>/<%= $tag %>/thumbs/thumb_<%= $images->{$tag}->[0]->{'name'} %>"/>
+    </a>
+  </li>
+% }
+</ul>
+
+<script src="/js/jquery-1.7.2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>

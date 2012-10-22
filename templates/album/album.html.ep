@@ -1,0 +1,43 @@
+% layout 'default';
+% title 'Album';
+
+<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+    % foreach my $date (sort {$b cmp $a} keys %$images) {
+        % foreach my $elm ( @{$images->{$date}} ) {
+            <a rel="gallery" href="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/<%= $elm->{'name'} %>">
+                <img  src="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/thumbs/thumb_<%= $elm->{'name'} %>"/>
+            </a>
+        % }
+    % }
+</div>
+
+    <!--   The image slideshower  -->
+    <div id="modal-gallery" class="modal modal-gallery fade modal-fullscreen">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">&times;</a>
+        </div>
+        <div class="modal-body"><div class="modal-image"></div></div>
+        <div class="modal-footer">
+          <a class="btn modal-download" target="_blank">
+            <i class="icon-download"></i>
+              <span>Download</span>
+            </a>
+            <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
+              <i class="icon-play icon-white"></i>
+              <span>Slideshow</span>
+            </a>
+            <a class="btn btn-info modal-prev">
+              <i class="icon-arrow-left icon-white"></i>
+              <span>Previous</span>
+            </a>
+            <a class="btn btn-primary modal-next">
+              <span>Next</span>
+              <i class="icon-arrow-right icon-white"></i>
+          </a>
+        </div>
+    </div>
+
+  <script src="/js/jquery-1.7.2.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
+  <script src="/js/bootstrap-image-gallery.min.js"></script>

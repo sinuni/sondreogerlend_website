@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8"/> 
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/div.css">
+    <link rel="stylesheet" href="/css/bootstrap-image-gallery.min.css">
+    <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="/flowplayer-5.0.0/skin/minimalist.css"/>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css"/>
+    <style> html { background: transparent}
+        body { background: #f1f1e0 }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="span10 offset1" style="background: white;">
+          <div id="imgSlider" class="carousel slide">
+            <div class="carousel-inner">
+
+            % my @imgs = `ls public/images/slider/`; 
+            % foreach my $img ( @imgs ) {
+              <div class="item<%= " active" if $img =~ /active/ %>">
+                <img src="/images/slider/<%= $img %>" alt=""/>
+              </div>
+            % }
+
+            </div>
+            <a class="carousel-control left" href="#imgSlider" data-slide="prev" onClick="_gaq.push(['_trackEvent', 'Image', 'Click', 'test']);">&lsaquo;</a>
+            <a class="carousel-control right" href="#imgSlider" data-slide="next">&rsaquo;</a>
+          </div>
+          <div class="navbar" style="margin-top:-1.4em">
+            <div class="navbar-inner">
+              <ul class="nav">
+                <li class="active"><a href="/">Home</a>
+                <li class="active"><a href="/omoss">Om oss</a>
+                <li class="active"><a href="/albums">Bilder</a>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span7">
+              <div style="padding-left: 1em;">
+              <%= content %>
+              </div>
+            </div>
+            <div class="span3">
+              <div style="padding-right: 1em;">
+              <div class="bs-docs-example">
+              <a href="http://www.amfibi.no">
+                <img src="/images/sponsorer/amfibi.jpg"></img>
+              </a>
+              <!--<a href="http://www.vffsk.no/">
+                <img style="padding-top: 30px" src="/images/sponsorer/fsk.jpg"></img>
+              </a>-->
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
+    <!--<script src="/js/jquery-1.7.2.min.js"></script>-->
+    <!--<script src="/js/bootstrap.min.js"></script>-->
+    <script>
+    $(function() {
+        $('#imgSlider').carousel({
+            interval: 5000
+        });
+    });
+
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35653288-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+  </body>
+</html>

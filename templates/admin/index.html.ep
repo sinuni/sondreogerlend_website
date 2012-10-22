@@ -1,0 +1,79 @@
+% layout 'simple';
+% title 'Admin';
+
+<h1>Admin</h1>
+<form method="get" action="/admin/remove">
+    <p><input type="submit" value="Remove Images" class="btn btn-danger"/></p>
+</form>
+<form method="get" action="/admin/remove/posts">
+    <p><input type="submit" value="Remove Posts" class="btn btn-danger"/></p>
+</form>
+<form method="get" action="/admin/editor">
+    <p><input type="submit" value="Add Post" class="btn btn-primary"/></p>
+</form>
+<hr>
+<h3>Selected travel:</h3>
+<form method="post" action="/admin/newTravel">
+<select id="travelSelect" onclick="setSelectedTravel();">
+  % foreach my $travel (@$travels) {
+      % if ($travel eq $selected) {
+        <option selected="selected"><%= $travel %></option>
+      % } else {
+        <option><%= $travel %></option>
+      % }
+  % }
+</select>
+    <input type="text" name="newtravel" placeholder="New travel"/>
+    <input type="submit" value="Add" class="btn btn-primary"/>
+</form>
+<h2>Upload Images</h2>
+<form method="post" action="/admin/upload" enctype="multipart/form-data">
+    <p><input type="file" id="filesToUpload" name="imagefiles[]" multiple="" class="btn" onChange="makeFileList();"/>
+    <input type="text" name="tag" placeholder="Tag"/></p>
+    <input type="hidden" id="hiddenImage" name="selectedTravel" value=""/>
+    <input type="submit" value="Upload" class="btn btn-primary" onmousemove="setSelectedTravel();"/>
+</form>
+<ul id="fileList"><li>No Files Selected</li></ul>
+<h2>Upload Video</h2>
+<form method="post" action="/admin/uploadVideo">
+    <p>
+      <input type="text" name="title" placeholder="Title"/><br/>
+      <input type="text" name="videoid" placeholder="VideoId"/><br/>
+      <input type="text" name="tag" placeholder="Tag"/>
+      <input type="hidden" id="hiddenVideo" name="selectedTravel" value=""/>
+    </p>
+    <input type="submit" value="Upload" class="btn btn-primary" onmousemove="setSelectedTravel();"/>
+<h1 id="test"></h1>
+
+
+<script>
+function setSelectedTravel() {
+    var hiddenImage = document.getElementById('hiddenImage');
+    var hiddenVideo = document.getElementById('hiddenVideo');
+    var select = document.getElementById('travelSelect');
+
+    hiddenImage.value = select.options[select.selectedIndex].text;
+    hiddenVideo.value = select.options[select.selectedIndex].text;
+    var test = document.getElementById('test');
+    test.innerHTML = hiddenImage.value;
+}
+
+function makeFileList() {
+    //get the input and UL list
+    var input = document.getElementById('filesToUpload');
+    var list = document.getElementById('fileList');
+
+    //empty list for now...
+    while (list.hasChildNodes()) {
+      list.removeChild(list.firstChild);
+    }
+
+    //for every file...
+    for (var x = 0; x < input.files.length; x++) {
+      //add to list
+      var li = document.createElement('li');
+      li.innerHTML = 'File ' + (x + 1) + ':  ' + input.files[x].name;
+      list.appendChild(li);
+    }
+}
+</script>

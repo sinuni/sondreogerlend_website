@@ -1,0 +1,10 @@
+% layout 'simple';
+% title 'Login';
+
+<div class="container well">
+  <form method="post" action="/admin/validate">
+    <p><input type="text" name="user" placeholder="Brukernavn"/></p>
+    <p><input type="password" name="password" placeholder="Passord"/></p>
+    <input type="submit" value="Login"/>
+  </form>
+</div>

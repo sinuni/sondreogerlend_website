@@ -1,0 +1,1 @@
+vim -p admin/index.html.ep admin/remove.html.ep error/index.html.ep home/index.html.ep layouts/default.html.ep layouts/simple.html.ep

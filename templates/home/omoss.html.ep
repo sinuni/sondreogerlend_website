@@ -1,0 +1,23 @@
+% layout 'default';
+% title 'Om oss';
+
+<p>Masse fint om oss</p>
+<a class="btn video" href="#modal-video" data-toggle="modal"
+id="player">Video
+</a>
+
+    <div id="modal-video1" class="modal hide fade modal-fullscreen" style="width:660px">
+        <div class="container">
+        <a href="#" class="close icon" data-dismiss="modal">&times;</a>
+        <iframe src="/video?videofile=linux.webm" width="700" height="380" frameborder="0"></iframe>
+        </div>
+    </div>
+    <div id="modal-video" class="modal hide fade modal-fullscreen" style="width:660px">
+        <div class="container">
+        <a href="#" class="close icon" data-dismiss="modal">&times;</a>
+        <iframe width="640" height="360" src="http://www.youtube.com/embed/BMh_NRSdnJQ" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+  <script src="/js/jquery-1.7.2.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
