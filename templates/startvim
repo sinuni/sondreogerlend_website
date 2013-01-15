@@ -1,1 +1,5 @@
-vim -p admin/index.html.ep admin/remove.html.ep error/index.html.ep home/index.html.ep layouts/default.html.ep layouts/simple.html.ep
+#!/bin/bash
+
+cd $HOME/dev/mojo/blogg/templates
+
+vim -p admin/index.html.ep admin/remove/images.html.ep error/index.html.ep home/index.html.ep layouts/default.html.ep layouts/simple.html.ep

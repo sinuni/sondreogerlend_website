@@ -6,7 +6,7 @@
   <li class="span1.5">
     <h4><%= $tag %></h4>
     <a rel="gallery" href="/album?tag=<%= $tag %>" class="thumbnail">
-        <img  src="/images/<%= $images->{$tag}->[0]->{'travel'} %>/<%= $tag %>/thumbs/thumb_<%= $images->{$tag}->[0]->{'name'} %>"/>
+        <img  src="/images/<%= $images->{$tag}->[1]->{'travel'} %>/<%= $tag %>/thumbs/thumb_<%= $images->{$tag}->[1]->{'name'} %>"/>
     </a>
   </li>
 % }

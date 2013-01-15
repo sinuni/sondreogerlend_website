@@ -33,8 +33,9 @@ sub validate {
     if ($user eq 'sondre' and $password eq 'frihet') {
         $self->session(user => $user);
         $redirect = '/admin';
+    } else {
+        $self->flash(message => 'Feil brukernavn eller passord:///');
     }
-    $self->flash(message => 'Feil brukernavn eller passord:///');
     $self->redirect_to($redirect);
 }
 
@@ -109,10 +110,6 @@ sub upload {
         Db::setSelectedTravel($travel);
         Db::disconnect();
 
-        $self->app->log->debug('-----HER!!-----');
-        my $ls = `ls`;
-        $self->app->log->debug("$_") for $ls;
-#   $ENV{MOJO_MAX_MESSAGE_SIZE} = 1073741824;
 
         $self->redirect_to('/');
     }

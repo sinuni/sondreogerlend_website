@@ -2,14 +2,16 @@
 % title 'Album';
 
 <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
+    <div class="thumb-container">
     % foreach my $date (sort {$b cmp $a} keys %$images) {
         % foreach my $elm ( @{$images->{$date}} ) {
             <a rel="gallery" href="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/<%= $elm->{'name'} %>"
                     onClick="_gaq.push(['_trackEvent', 'Image_Album', 'Click', '<%= $elm->{'name'} %>']);">
-                <img  src="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/thumbs/thumb_<%= $elm->{'name'} %>"/>
+                <img class="thumb-img"  src="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/thumbs/thumb_<%= $elm->{'name'} %>"/>
             </a>
         % }
     % }
+    </div>
 </div>
 
     <!--   The image slideshower  -->

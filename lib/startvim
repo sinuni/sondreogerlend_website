@@ -1,3 +1,5 @@
 #!/bin/bash
 
+cd $HOME/dev/mojo/blogg/lib
+
 vim -p Blogg.pm Db.pm Blogg/Admin.pm Blogg/Home.pm Blogg/Admin/Remove.pm Blogg/Error.pm

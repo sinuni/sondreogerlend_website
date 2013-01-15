@@ -3,6 +3,7 @@
   <head>
     <title><%= title %></title>
     <meta charset="UTF-8"/> 
+    <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/div.css">
     <link rel="stylesheet" href="/css/bootstrap-image-gallery.min.css">
@@ -14,22 +15,69 @@
     </style>
   </head>
   <body>
+
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        // init the FB JS SDK
+        FB.init({
+          appId      : '', // App ID from the App Dashboard
+          channelUrl : '//www.sondreogerlend.no', // Channel File for x-domain communication
+          status     : true, // check the login status upon init?
+          cookie     : true, // set sessions cookies to allow your server to access the session?
+          xfbml      : true  // parse XFBML tags on this page?
+        });
+
+        // Additional initialization code such as adding Event Listeners goes here
+
+      };
+
+      // Load the SDK's source Asynchronously
+      // Note that the debug version is being actively developed and might 
+      // contain some type checks that are overly strict. 
+      // Please report such bugs using the bugs tool.
+      (function(d, debug){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+         ref.parentNode.insertBefore(js, ref);
+       }(document, /*debug*/ false));
+    </script>
+    <script src="//connect.facebook.net/en_US/all.js"></script>
     <div class="container">
       <div class="row">
-      <div class="spann0">
-        <ul class="nav nav-tabs nav-stacked sidebar-nav-fixed" style="background: #ffffff">
-          <li><a href="#"><i class="icon-chevron-right"></i>Månde1</a></li>
-          <li><a href="#"><i class="icon-chevron-right"></i>Månde2</a></li>
-          <li><a href="#"><i class="icon-chevron-right"></i>Månde3</a></li>
+        <div class="span1">
+        <i class="sidecomment">"Turblogg for backpackere, friluftsfolk og livsnytere"</i>
+        <ul class="nav nav-list sidebar-nav-fixed well nav-inverse" style="width: 80px">
+          <li class="nav-header">2012</li>
+          <li><a href="/?year=2012&month=nov">November</a></li>
+          <li><a href="/?year=2012&month=des">Desember</a></li>
+          <li class="nav-header">2013</li>
+          <li><a href="/?year=2013&month=jan">Januar</a></li>
+          <li><a href="/?year=2013&month=feb">Februar</a></li>
+          <li><a href="/?year=2013&month=mar">Mars</a></li>
+          <li><a href="/?year=2013&month=apr">April</a></li>
+          <li><a href="/?year=2013&month=may">Mai</a></li>
         </ul>
+        </div>
       </div>
         <div class="span10 offset1" style="background: white;">
           <div id="imgSlider" class="carousel slide">
             <div class="carousel-inner">
 
             % my @imgs = `ls public/images/slider/`; 
+            % my $i = @imgs;
+            % while ($i--) {
+            %   my $j = int rand($i+1);
+            %   @imgs[$i,$j] = @imgs[$j,$i];
+            % }
+            <div class="item active">
+              <img src="/images/slider/<%= $imgs[0] %>" alt=""/>
+            </div>
+            % shift @imgs;
             % foreach my $img ( @imgs ) {
-              <div class="item<%= " active" if $img =~ /active/ %>">
+              <div class="item">
                 <img src="/images/slider/<%= $img %>" alt=""/>
               </div>
             % }
@@ -41,9 +89,10 @@
           <div class="navbar" style="margin-top:-1.4em">
             <div class="navbar-inner">
               <ul class="nav">
-                <li class="active"><a href="/">Home</a>
-                <li class="active"><a href="/omoss">Om oss</a>
-                <li class="active"><a href="/albums">Bilder</a>
+                <li class=""><a href="/">Hjem</a>
+                <li class=""><a href="/omoss">Om oss</a>
+                <li class=""><a href="/albums">Bilder</a>
+                <li class=""><a href="/kart">Kart</a>
               </ul>
             </div>
           </div>
@@ -51,19 +100,26 @@
             <div class="span7">
               <div style="padding-left: 1em;">
               <%= content %>
+              <hr style="border-color: #bbbbbb; margin-top: 3em"/>
+              <p><strong>Skribent og fotograf:</strong> Erlend Berge Næsheim</p>
+              <p><strong>Nettside- utvikler og drifter:</strong> Sondre Haugen Lima</p>
+              <p style="padding-top: 1em"><center>&copy; SONDREOGERLEND.NO</center></p>
               </div>
             </div>
             <div class="span3">
               <div style="padding-right: 1em;">
-              <div class="bs-docs-example">
-              <a href="http://www.amfibi.no">
-                <img src="/images/sponsorer/amfibi.jpg"></img>
-              </a>
-              <!--<a href="http://www.vffsk.no/">
-                <img style="padding-top: 30px" src="/images/sponsorer/fsk.jpg"></img>
-              </a>-->
+                <div class="bs-docs-example">
+                <a href="http://www.amfibi.no" target="_blank">
+                  <img src="/images/sponsorer/amfibi.jpg"></img>
+                </a>
+                <!--<a href="http://www.vffsk.no/">
+                  <img style="padding-top: 30px" src="/images/sponsorer/fsk.jpg"></img>
+                </a>-->
+                </div>
               </div>
-              </div>
+              <!--<div style="padding-top: 2em"
+                <div class="fb-like" data-href="http://www.sondreogerlend.no" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+              </div>-->
             </div>
           </div>
         </div>

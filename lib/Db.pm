@@ -37,6 +37,17 @@ sub getPosts {
     return $posts;
 }
 
+sub addCommentToPost {
+    die "addCommentToPost takes three arguments, \$postid, \\\$name and \\\$comment\n" unless @_ == 3;
+    my ($postid, $name, $comment) = @_;
+
+    my $sth = $dbh->prepare("INSERT INTO post_comment (postid, name, text, date, time) VALUES(?, ?, ?, now()::date, now()::time)")
+        or die "Cannot prepare statment: $DBI::errstr\n";
+
+    $sth->execute($postid, $$name, $$comment)
+        or die "Cannot execute statment: $DBI::errstr\n";
+}
+
 sub addVideo {
     die "addVideo takes fore arguments, \$title, \$videoid, \$tag and \$travel\n" unless @_ == 4;
     my ($title, $videoid, $tag, $travel) = @_;
@@ -184,18 +195,72 @@ sub rmVideosByVideoIds {
 }
 
 sub getImagesAndPosts {
-    my $imgSth = $dbh->prepare("SELECT name, date, tag, travel FROM image order by date desc limit 40");
+    my $imgSth = $dbh->prepare("SELECT name, date, tag, travel FROM image order by date desc, name asc limit 50");
     $imgSth->execute or die "Cannot execute statment: $DBI::errstr\n";
 
-    my $postSth = $dbh->prepare("SELECT name, html,  date, tag, travel FROM post order by date desc, time desc limit 8");
+    my $postSth = $dbh->prepare("SELECT id, name, html,  date, tag, travel FROM post order by date desc, time desc limit 6");
     $postSth->execute or die "Cannot execute statment: $DBI::errstr\n";
 
     my $videoSth = $dbh->prepare("SELECT name, videoid, date, tag, travel FROM video order by date desc, time desc limit 10");
     $videoSth->execute or die "Cannot execute statment: $DBI::errstr\n";
 
+    my $commentSth = $dbh->prepare("SELECT name, text, date, time FROM post_comment WHERE postid=?");
+
     my $elements = {};
-    while (my ($name, $html, $date, $tag, $travel) = $postSth->fetchrow_array()) {
-        push @{$elements->{$date}}, {'name' => $name, 'html' => $html, 'tag' => $tag, 'travel' => $travel};
+    while (my ($id, $name, $html, $date, $tag, $travel) = $postSth->fetchrow_array()) {
+        my $comments = [];
+        push @{$elements->{$date}}, {'id' => $id, 'name' => $name, 'html' => $html, 'tag' => $tag, 'travel' => $travel, 'comments' => $comments};
+
+        $commentSth->execute($id) or die "Cannot execute statment: $DBI::errstr\n";
+        while (my ($name, $comment, $date, $time) = $commentSth->fetchrow_array()) {
+            push @$comments, {'name' => $name, 'comment' => $comment, 'date' => $date, 'time' => $time};
+        }
+    }
+    while (my ($name, $videoid, $date, $tag, $travel) = $videoSth->fetchrow_array()) {
+        push @{$elements->{$date}}, {'title' => $name, 'videoid' => $videoid, 'tag' => $tag, 'travel' => $travel};
+    }
+    while (my ($name, $date, $tag, $travel) = $imgSth->fetchrow_array()) {
+        push @{$elements->{$date}}, {'name' => $name, 'tag' => $tag, 'travel' => $travel};
+    }
+    return $elements;
+}
+
+sub getImagesAndPostsByMonth {
+    my $year = shift;
+    my $month = shift;
+
+    my $imgSth = $dbh->prepare("SELECT name, date, tag, travel 
+                                FROM image
+                                WHERE EXTRACT(month FROM \"date\") = $month
+                                AND EXTRACT(year FROM \"date\") = $year
+                                ORDER BY date desc, name asc");
+    $imgSth->execute or die "Cannot execute statment: $DBI::errstr\n";
+
+    my $postSth = $dbh->prepare("SELECT id, name, html,  date, tag, travel
+                                 FROM post
+                                 WHERE EXTRACT(month FROM \"date\") = $month
+                                 AND EXTRACT(year FROM \"date\") = $year
+                                 ORDER BY date desc, time desc");
+    $postSth->execute or die "Cannot execute statment: $DBI::errstr\n";
+
+    my $videoSth = $dbh->prepare("SELECT name, videoid, date, tag, travel
+                                  FROM video
+                                  WHERE EXTRACT(month FROM \"date\") = $month
+                                  AND EXTRACT(year FROM \"date\") = $year
+                                  ORDER BY date desc, time desc");
+    $videoSth->execute or die "Cannot execute statment: $DBI::errstr\n";
+
+    my $commentSth = $dbh->prepare("SELECT name, text, date, time FROM post_comment WHERE postid=?");
+
+    my $elements = {};
+    while (my ($id, $name, $html, $date, $tag, $travel) = $postSth->fetchrow_array()) {
+        my $comments = [];
+        push @{$elements->{$date}}, {'id' => $id, 'name' => $name, 'html' => $html, 'tag' => $tag, 'travel' => $travel, 'comments' => $comments};
+
+        $commentSth->execute($id) or die "Cannot execute statment: $DBI::errstr\n";
+        while (my ($name, $comment, $date, $time) = $commentSth->fetchrow_array()) {
+            push @$comments, {'name' => $name, 'comment' => $comment, 'date' => $date, 'time' => $time};
+        }
     }
     while (my ($name, $videoid, $date, $tag, $travel) = $videoSth->fetchrow_array()) {
         push @{$elements->{$date}}, {'title' => $name, 'videoid' => $videoid, 'tag' => $tag, 'travel' => $travel};

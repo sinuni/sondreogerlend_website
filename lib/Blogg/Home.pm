@@ -3,7 +3,8 @@ use Mojo::Base 'Mojolicious::Controller';
 use Db;
 use utf8;
 
-# This action will render a template
+my $month = {'jan' => 1, 'feb' => 2, 'mar' => 3, 'apr' => 4, 'may' => 5, 'jun' => 6, 'jul' => 7, 'aug' => 8, 'sep' => 9, 'okt' => 10, 'nov' => 11, 'des' => 12};
+
 sub index {
     my $self = shift;
 
@@ -11,13 +12,20 @@ sub index {
     my $images = Db::getImages();
     $self->stash(images => $images);
 
-    my $elements = Db::getImagesAndPosts();
+    my $elements;
+    if (defined $self->param('month')) {
+        my $y = $self->param('year');
+        my $m = $self->param('month');
+#       $self->app->log->debug("---$m");
+        $elements = Db::getImagesAndPostsByMonth($y, $month->{$m});
+    } else {
+        $elements = Db::getImagesAndPosts();
+    }
     $self->stash(elements => $elements);
     Db::disconnect();
 
     # Render template "example/welcome.html.ep" with message
-    my $message = "Velkommen på norsk:) $images->{'2012-08-10'}->[1]->{'name'}";
-    $self->render( message => $message);
+    $self->render();
 }
 
 sub video {
@@ -28,6 +36,12 @@ sub video {
 }
 
 sub omoss {
+    my $self = shift;
+
+    $self->render();
+}
+
+sub kart {
     my $self = shift;
 
     $self->render();

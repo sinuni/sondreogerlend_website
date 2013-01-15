@@ -75,3 +75,216 @@
 [Sat Oct 20 19:27:54 2012] [info] Hypnotoad server 2987 started for "/home/tiro/dev/mojo/blogg/script/blogg".
 [Sat Oct 20 19:27:54 2012] [info] Listening at "http://*:8080".
 [Sat Oct 20 19:27:54 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Sun Nov  4 19:07:17 2012] [info] Hypnotoad server 4432 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Sun Nov  4 19:07:18 2012] [info] Listening at "http://*:8080".
+[Sun Nov  4 19:07:18 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Sun Nov  4 19:23:33 2012] [info] Hypnotoad server 3349 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Sun Nov  4 19:23:33 2012] [info] Listening at "http://*:8080".
+[Sun Nov  4 19:23:33 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Sun Nov  4 19:35:50 2012] [info] Hypnotoad server 3488 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Sun Nov  4 19:35:50 2012] [info] Listening at "http://*:8080".
+[Sun Nov  4 19:35:50 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Sun Nov  4 19:44:57 2012] [info] Starting zero downtime software upgrade.
+[Sun Nov  4 19:44:57 2012] [info] Hypnotoad server 3623 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Sun Nov  4 19:44:57 2012] [info] Listening at "http://*:8080".
+[Sun Nov  4 19:44:57 2012] [info] Upgrade successful, stopping 3488.
+[Sun Nov  4 19:44:58 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Sun Nov  4 19:48:51 2012] [info] Starting zero downtime software upgrade.
+[Sun Nov  4 19:48:51 2012] [info] Hypnotoad server 3756 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Sun Nov  4 19:48:51 2012] [info] Listening at "http://*:8080".
+[Sun Nov  4 19:48:51 2012] [info] Upgrade successful, stopping 3623.
+[Sun Nov  4 19:48:52 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Sun Nov  4 19:50:39 2012] [info] Starting zero downtime software upgrade.
+[Sun Nov  4 19:50:40 2012] [info] Hypnotoad server 3880 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Sun Nov  4 19:50:40 2012] [info] Listening at "http://*:8080".
+[Sun Nov  4 19:50:40 2012] [info] Upgrade successful, stopping 3756.
+[Sun Nov  4 19:50:41 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Sun Nov  4 19:52:33 2012] [info] Starting zero downtime software upgrade.
+[Sun Nov  4 19:52:33 2012] [info] Hypnotoad server 3981 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Sun Nov  4 19:52:33 2012] [info] Listening at "http://*:8080".
+[Sun Nov  4 19:52:33 2012] [info] Upgrade successful, stopping 3880.
+[Sun Nov  4 19:52:34 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Wed Nov  7 01:03:46 2012] [info] Starting zero downtime software upgrade.
+[Wed Nov  7 01:03:46 2012] [info] Hypnotoad server 20309 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Nov  7 01:03:46 2012] [info] Listening at "http://*:8080".
+[Wed Nov  7 01:03:46 2012] [info] Upgrade successful, stopping 3981.
+[Wed Nov  7 01:03:47 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Thu Nov  8 03:39:26 2012] [info] Starting zero downtime software upgrade.
+[Thu Nov  8 03:39:26 2012] [info] Hypnotoad server 25493 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Thu Nov  8 03:39:26 2012] [info] Listening at "http://*:8080".
+[Thu Nov  8 03:39:26 2012] [info] Upgrade successful, stopping 20309.
+[Thu Nov  8 03:39:27 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Wed Nov 14 05:30:21 2012] [info] Starting zero downtime software upgrade.
+[Wed Nov 14 05:30:21 2012] [info] Hypnotoad server 26671 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Nov 14 05:30:21 2012] [info] Listening at "http://*:8080".
+[Wed Nov 14 05:30:21 2012] [info] Upgrade successful, stopping 25493.
+[Wed Nov 14 05:30:22 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Nov 20 09:07:12 2012] [info] Starting zero downtime software upgrade.
+[Tue Nov 20 09:07:12 2012] [info] Hypnotoad server 31640 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Nov 20 09:07:12 2012] [info] Listening at "http://*:8080".
+[Tue Nov 20 09:07:12 2012] [info] Upgrade successful, stopping 26671.
+[Tue Nov 20 09:07:13 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Nov 20 09:13:23 2012] [info] Starting zero downtime software upgrade.
+[Tue Nov 20 09:13:23 2012] [info] Hypnotoad server 31693 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Nov 20 09:13:23 2012] [info] Listening at "http://*:8080".
+[Tue Nov 20 09:13:23 2012] [info] Upgrade successful, stopping 31640.
+[Tue Nov 20 09:13:24 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Nov 20 09:17:21 2012] [info] Starting zero downtime software upgrade.
+[Tue Nov 20 09:17:21 2012] [info] Hypnotoad server 31784 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Nov 20 09:17:21 2012] [info] Listening at "http://*:8080".
+[Tue Nov 20 09:17:21 2012] [info] Upgrade successful, stopping 31693.
+[Tue Nov 20 09:17:22 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Fri Nov 23 10:09:47 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:15:02 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:15:27 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:16:04 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:18:47 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:19:24 2012] [info] Starting zero downtime software upgrade.
+[Fri Nov 23 10:19:24 2012] [info] Hypnotoad server 16838 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Fri Nov 23 10:19:24 2012] [info] Listening at "http://*:8080".
+[Fri Nov 23 10:19:24 2012] [info] Upgrade successful, stopping 31784.
+[Fri Nov 23 10:19:25 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Fri Nov 23 10:19:39 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:20:17 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:20:59 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:21:20 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Fri Nov 23 10:22:20 2012] [error] Cannot execute statment: ERROR:  value too long for type character varying(50)
+
+[Sat Dec  1 02:08:25 2012] [info] Starting zero downtime software upgrade.
+[Sat Dec  1 02:08:25 2012] [info] Hypnotoad server 1301 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Sat Dec  1 02:08:25 2012] [info] Listening at "http://*:8080".
+[Sat Dec  1 02:08:25 2012] [info] Upgrade successful, stopping 16838.
+[Sat Dec  1 02:08:27 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 03:48:15 2012] [info] Worker 1305 has no heartbeat, restarting.
+[Tue Dec  4 06:52:03 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 06:52:03 2012] [info] Hypnotoad server 19248 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 06:52:03 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 06:52:03 2012] [info] Upgrade successful, stopping 1301.
+[Tue Dec  4 06:52:04 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 06:53:08 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 06:53:08 2012] [info] Hypnotoad server 19257 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 06:53:08 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 06:53:08 2012] [info] Upgrade successful, stopping 19248.
+[Tue Dec  4 06:53:09 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 08:42:43 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 08:42:44 2012] [info] Hypnotoad server 20055 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 08:42:44 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 08:42:44 2012] [info] Upgrade successful, stopping 19257.
+[Tue Dec  4 08:42:45 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 11:20:34 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 11:20:34 2012] [info] Hypnotoad server 21257 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 11:20:34 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 11:20:34 2012] [info] Upgrade successful, stopping 20055.
+[Tue Dec  4 11:20:54 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 11:45:10 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 11:45:10 2012] [info] Hypnotoad server 21394 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 11:45:10 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 11:45:10 2012] [info] Upgrade successful, stopping 21257.
+[Tue Dec  4 11:45:11 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 11:52:05 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 11:52:05 2012] [info] Hypnotoad server 21436 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 11:52:05 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 11:52:05 2012] [info] Upgrade successful, stopping 21394.
+[Tue Dec  4 11:52:06 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 12:36:31 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 12:36:31 2012] [info] Hypnotoad server 21703 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 12:36:31 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 12:36:31 2012] [info] Upgrade successful, stopping 21436.
+[Tue Dec  4 12:36:45 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 13:00:57 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 13:00:57 2012] [info] Hypnotoad server 21895 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 13:00:57 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 13:00:57 2012] [info] Upgrade successful, stopping 21703.
+[Tue Dec  4 13:01:18 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec  4 23:29:26 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec  4 23:29:26 2012] [info] Hypnotoad server 24429 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec  4 23:29:26 2012] [info] Listening at "http://*:8080".
+[Tue Dec  4 23:29:26 2012] [info] Upgrade successful, stopping 21895.
+[Tue Dec  4 23:29:27 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Wed Dec  5 00:34:48 2012] [info] Starting zero downtime software upgrade.
+[Wed Dec  5 00:34:48 2012] [info] Hypnotoad server 24658 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Dec  5 00:34:48 2012] [info] Listening at "http://*:8080".
+[Wed Dec  5 00:34:48 2012] [info] Upgrade successful, stopping 24429.
+[Wed Dec  5 00:35:09 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Wed Dec  5 00:35:23 2012] [info] Starting zero downtime software upgrade.
+[Wed Dec  5 00:35:23 2012] [info] Hypnotoad server 24668 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Dec  5 00:35:23 2012] [info] Listening at "http://*:8080".
+[Wed Dec  5 00:35:23 2012] [info] Upgrade successful, stopping 24658.
+[Wed Dec  5 00:35:24 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Wed Dec  5 00:38:58 2012] [info] Starting zero downtime software upgrade.
+[Wed Dec  5 00:38:59 2012] [info] Hypnotoad server 24689 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Dec  5 00:38:59 2012] [info] Listening at "http://*:8080".
+[Wed Dec  5 00:38:59 2012] [info] Upgrade successful, stopping 24668.
+[Wed Dec  5 00:39:00 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Wed Dec  5 00:39:58 2012] [info] Starting zero downtime software upgrade.
+[Wed Dec  5 00:39:58 2012] [info] Hypnotoad server 24710 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Dec  5 00:39:58 2012] [info] Listening at "http://*:8080".
+[Wed Dec  5 00:39:58 2012] [info] Upgrade successful, stopping 24689.
+[Wed Dec  5 00:40:18 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Thu Dec  6 18:28:16 2012] [info] Starting zero downtime software upgrade.
+[Thu Dec  6 18:28:17 2012] [info] Hypnotoad server 1428 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Thu Dec  6 18:28:17 2012] [info] Listening at "http://*:8080".
+[Thu Dec  6 18:28:17 2012] [info] Upgrade successful, stopping 24710.
+[Thu Dec  6 18:28:18 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Thu Dec  6 18:28:46 2012] [info] Starting zero downtime software upgrade.
+[Thu Dec  6 18:28:47 2012] [info] Hypnotoad server 1517 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Thu Dec  6 18:28:47 2012] [info] Listening at "http://*:8080".
+[Thu Dec  6 18:28:47 2012] [info] Upgrade successful, stopping 1428.
+[Thu Dec  6 18:28:48 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Mon Dec 10 11:55:34 2012] [info] Worker 1520 has no heartbeat, restarting.
+[Tue Dec 11 23:44:54 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec 11 23:44:54 2012] [info] Hypnotoad server 32643 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec 11 23:44:54 2012] [info] Listening at "http://*:8080".
+[Tue Dec 11 23:44:54 2012] [info] Upgrade successful, stopping 1517.
+[Tue Dec 11 23:44:55 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Sun Dec 16 15:02:56 2012] [info] Worker 32644 has no heartbeat, restarting.
+[Wed Dec 19 21:43:48 2012] [info] Hypnotoad server 3096 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Dec 19 21:43:48 2012] [info] Listening at "http://*:8080".
+[Wed Dec 19 21:43:48 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Wed Dec 19 21:44:03 2012] [info] Starting zero downtime software upgrade.
+[Wed Dec 19 21:44:03 2012] [info] Hypnotoad server 3182 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Dec 19 21:44:03 2012] [info] Listening at "http://*:8080".
+[Wed Dec 19 21:44:03 2012] [info] Upgrade successful, stopping 3096.
+[Wed Dec 19 21:44:04 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Wed Dec 19 21:44:26 2012] [info] Starting zero downtime software upgrade.
+[Wed Dec 19 21:44:26 2012] [info] Hypnotoad server 3274 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Wed Dec 19 21:44:26 2012] [info] Listening at "http://*:8080".
+[Wed Dec 19 21:44:26 2012] [info] Upgrade successful, stopping 3182.
+[Wed Dec 19 21:44:27 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Fri Dec 21 19:15:39 2012] [info] Hypnotoad server 3105 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Fri Dec 21 19:15:39 2012] [info] Listening at "http://*:8080".
+[Fri Dec 21 19:15:39 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Fri Dec 21 19:15:49 2012] [info] Starting zero downtime software upgrade.
+[Fri Dec 21 19:15:49 2012] [info] Hypnotoad server 3201 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Fri Dec 21 19:15:49 2012] [info] Listening at "http://*:8080".
+[Fri Dec 21 19:15:49 2012] [info] Upgrade successful, stopping 3105.
+[Fri Dec 21 19:15:50 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Tue Dec 25 04:48:05 2012] [info] Starting zero downtime software upgrade.
+[Tue Dec 25 04:48:05 2012] [info] Hypnotoad server 21092 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Tue Dec 25 04:48:05 2012] [info] Listening at "http://*:8080".
+[Tue Dec 25 04:48:05 2012] [info] Upgrade successful, stopping 3201.
+[Tue Dec 25 04:48:06 2012] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Fri Dec 28 17:21:22 2012] [info] Worker 21094 has no heartbeat, restarting.
+[Tue Jan  1 21:12:17 2013] [info] Worker 8772 has no heartbeat, restarting.
+[Thu Jan 10 12:09:35 2013] [info] Hypnotoad server 3178 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Thu Jan 10 12:09:35 2013] [info] Listening at "http://*:8080".
+[Thu Jan 10 12:09:35 2013] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Thu Jan 10 12:09:55 2013] [info] Starting zero downtime software upgrade.
+[Thu Jan 10 12:09:56 2013] [info] Hypnotoad server 3273 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Thu Jan 10 12:09:56 2013] [info] Listening at "http://*:8080".
+[Thu Jan 10 12:09:56 2013] [info] Upgrade successful, stopping 3178.
+[Thu Jan 10 12:09:57 2013] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".
+[Thu Jan 10 11:59:07 2013] [info] Starting zero downtime software upgrade.
+[Thu Jan 10 11:59:07 2013] [info] Hypnotoad server 5233 started for "/home/tiro/dev/mojo/blogg/script/blogg".
+[Thu Jan 10 11:59:07 2013] [info] Listening at "http://*:8080".
+[Thu Jan 10 11:59:07 2013] [info] Upgrade successful, stopping 3273.
+[Thu Jan 10 11:59:27 2013] [info] Creating process id file "/home/tiro/dev/mojo/blogg/script/hypnotoad.pid".

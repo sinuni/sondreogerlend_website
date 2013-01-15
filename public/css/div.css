@@ -24,6 +24,12 @@
     border-radius: 4px;
 }
 
+.sidecomment {
+    position:absolute;
+    padding-top: 2em;
+    width: 8em;
+}
+
 .sidebar-nav {
     padding: 9px 0;
 }
@@ -45,4 +51,19 @@
         position:static;
         width: auto;
     }
+}
+
+.thumb-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.thumb-img {
+    margin-right: 4px;
+    margin-bottom: 4px;
+    float: left;
+}
+
+.comment {
+    padding-left: 2em;
 }

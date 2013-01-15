@@ -8,6 +8,9 @@
 <form method="get" action="/admin/remove/posts">
     <p><input type="submit" value="Remove Posts" class="btn btn-danger"/></p>
 </form>
+<form method="get" action="/admin/remove/videos">
+    <p><input type="submit" value="Remove Videos" class="btn btn-danger"/></p>
+</form>
 <form method="get" action="/admin/editor">
     <p><input type="submit" value="Add Post" class="btn btn-primary"/></p>
 </form>

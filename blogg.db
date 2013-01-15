@@ -35,7 +35,16 @@ CREATE TABLE post(
     time    time NOT NULL
 );
 
+CREATE TABLE post_comment(
+    id      SERIAL PRIMARY KEY,
+    postid  integer NOT NULL REFERENCES post(id) ON DELETE CASCADE,
+    name    varchar(50) NOT NULL,
+    text    text NOT NULL,
+    date    date NOT NULL,
+    time    time NOT NULL
+);
+
 CREATE TABLE travel(
-    name     varchar(100) PRIMARY KEY
+    name     varchar(100) PRIMARY KEY,
     selected boolean NOT NULL
 );
