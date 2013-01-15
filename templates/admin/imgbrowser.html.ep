@@ -1,0 +1,99 @@
+% layout 'simple';
+% title 'ImgBrowser';
+
+<h1>Hello World</h1>
+<ul class="breadcrumb">
+  <li>Folder</li>
+</ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Description</td>
+      <td>Size</td>
+    </tr>
+  </thead>
+  <tbody id="tablebody">
+  </tbody>
+</table>
+
+<script src="/js/jquery-1.7.2.min.js"></script>
+<script src="/js/jsrender.js"></script>
+<script src="/js/jquery.observable.js"></script>
+<script src="/js/jquery.views.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+<script id="folderTemplate" type="text/x-jsrender">
+    <tr>
+      <td><a id="folder" class="mappe">{{>name}}</a></td>
+      <td></td>
+      <td>50</td>
+    </tr>
+</script>
+
+<script id="fileTemplate" type="text/x-jsrender">
+    <tr>
+      <td>{{: ~showType(type, thumb) }}{{>name}}</td>
+      <td>{{if type == 'image'}}
+        <textarea id="tarea">Masse text</textarea><br/><button id="button" type="button" data-filename="{{:name}}" disabled>Updated</button>
+      {{/if}}</td>
+      <td>50</td>
+    </tr>
+</script>
+
+<script>
+    var folders = [
+    % foreach my $folder (  @{$content->{'folders'}} ) {
+        { name: "<%= $folder->{'name'} %>" },
+    % }
+    ];
+    var files = [
+    % foreach my $file ( @{$content->{'files'}} ) {
+        { name: "<%= $file->{'name'} %>" },
+    % }
+    ];
+
+    $(document).ready(function() {
+        templ(folders, files);
+    });
+
+    function templ(fol, fil) {
+        $("#tablebody").html(
+            $("#folderTemplate").render(fol) +
+            $("#fileTemplate").render(fil, {
+                showType:function(type, thumb){
+                    if(type === "image") {
+                        return '<img src="'+thumb+'"/><br/>';
+                    } else {
+                        return "";
+                    }
+                }
+            })
+        );
+    }
+
+    $("#tablebody #folder").live("click", function() {
+//      alert("se: "+$(this).text());
+        var name = $(this).text();
+        $.post("/admin/imgbrowser/changedir",
+        {
+            newdir: $(this).text()
+        },
+        function(data, textStatus) {
+            templ(data.folders, data.files);
+        });
+    });
+
+    $("#tablebody #tarea").live("click", function() {
+        $(this).text("Hello World");
+        $(this).parent().children("#button").text("Update");
+        $(this).parent().children("#button").removeAttr("disabled");
+    });
+
+    $("#tablebody #button").live("click", function() {
+        alert($(this).attr("data-filename"));
+        $(this).attr("disabled", "disabled");
+    });
+
+</script>
+

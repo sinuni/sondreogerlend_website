@@ -1,0 +1,49 @@
+% layout 'simple';
+% title 'Remove Videos';
+<input type="date"/><input type="date"/>
+<div id="remove" class="well">
+<p><input type="button" id="rmbutton" value="Remove" class="btn btn-danger pull-right"/></p>
+</div>
+
+<div id="have" class="well">
+    % foreach my $date (sort {$b cmp $a} keys %$videos) {
+        % foreach my $elm ( @{$videos->{$date}} ) {
+            <img id="<%= $elm->{'videoid'} %>" src="http://img.youtube.com/vi/<%= $elm->{'videoid'} %>/2.jpg" onclick="changeContainer('<%= $elm->{'videoid'} %>')"/> 
+        % }
+    % }
+</div>
+<h1 id="test"></h1>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+var video2rm = [];
+
+function changeContainer(videoId) {
+    var video = document.getElementById(videoId);
+    if (video.parentNode.id === "have") {
+        newContainerId = "remove";
+        video2rm.push(videoId);
+    }
+    else {
+        newContainerId = "have";
+        video2rm.splice(video2rm.indexOf(videoId), 1);
+    }
+    var newContainer = document.getElementById(newContainerId);
+
+    document.getElementById("test").innerHTML = JSON.stringify(video2rm);
+    video.parentNode.removeChild(video);
+    newContainer.appendChild(video);
+}
+
+$(function() {
+    $('#rmbutton').click(function () {
+        var postData = { 'videos' : video2rm };
+        $.post(
+            "/admin/remove/videosbyvideoid",
+            postData
+        );
+        location.reload();
+    });
+    
+});
+</script>
