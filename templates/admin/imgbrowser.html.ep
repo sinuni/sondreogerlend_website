@@ -13,12 +13,28 @@
       <td>Size</td>
     </tr>
   </thead>
-  <tbody id="tablebody">
+  <tbody id="tablebody" data-bind="foreach: folders">
+    <tr>
+      <td><a data-bind="text: name, click: $root.changeDir"></a></td>
+      <td></td>
+      <td>50</td>
+    <tr>
+  </tbody>
+  <tbody id="tbodyFiles" data-bind="foreach: files">
+    <tr>
+      <td><div data-bind="if: type == 'image'"><img data-bind="attr: { src: thumb }"/></div><div data-bind="text: name"></div</td>
+      <td><div data-bind="if: type == 'image'">
+        <textarea id="tarea" data-bind="text: description"></textarea><br/>
+        <button class="btn btn-info" data-bind="attr: { id: name }" disabled>Updated</button>
+      </div></td>
+      <td>50</td>
+    <tr>
   </tbody>
 </table>
 
 <script src="/js/jquery-1.7.2.min.js"></script>
 <script src="/js/jsrender.js"></script>
+<script src="/js/knockout-2.2.1.js"></script>
 <script src="/js/jquery.observable.js"></script>
 <script src="/js/jquery.views.js"></script>
 <script src="/js/bootstrap.min.js"></script>
@@ -35,65 +51,111 @@
     <tr>
       <td>{{: ~showType(type, thumb) }}{{>name}}</td>
       <td>{{if type == 'image'}}
-        <textarea id="tarea">Masse text</textarea><br/><button id="button" type="button" data-filename="{{:name}}" disabled>Updated</button>
+        <textarea id="tarea" data-link="description">{{:description}}</textarea><br/><button id="button" type="button" data-filename="{{:name}}" disabled>Updated</button>
       {{/if}}</td>
       <td>50</td>
     </tr>
 </script>
 
 <script>
-    var folders = [
+    var initialFolders = [
     % foreach my $folder (  @{$content->{'folders'}} ) {
         { name: "<%= $folder->{'name'} %>" },
     % }
     ];
-    var files = [
+    var initialFiles = [
     % foreach my $file ( @{$content->{'files'}} ) {
         { name: "<%= $file->{'name'} %>" },
     % }
     ];
 
+//  $.templates({
+//      fileTmpl: "#folderTemplate"
+//  });
+
     $(document).ready(function() {
-        templ(folders, files);
+//      templ(folders, files);
     });
 
-    function templ(fol, fil) {
-        $("#tablebody").html(
-            $("#folderTemplate").render(fol) +
-            $("#fileTemplate").render(fil, {
-                showType:function(type, thumb){
-                    if(type === "image") {
-                        return '<img src="'+thumb+'"/><br/>';
-                    } else {
-                        return "";
-                    }
-                }
-            })
-        );
-    }
+//  function templ(fol, fil) {
+//      $("#tablebody").html(
+//          $("#folderTemplate").render(fol) +
+//          $("#fileTemplate").render(fil, {
+//              showType:function(type, thumb){
+//                  if(type === "image") {
+//                      return '<img src="'+thumb+'"/><br/>';
+//                  } else {
+//                      return "";
+//                  }
+//              }
+//          })
+//      );
+//  }
 
-    $("#tablebody #folder").live("click", function() {
+//  $("#tablebody #folder").live("click", function() {
 //      alert("se: "+$(this).text());
-        var name = $(this).text();
-        $.post("/admin/imgbrowser/changedir",
+//      var name = $(this).text();
+//      $.post("/admin/imgbrowser/changedir",
+//      {
+//          newdir: $(this).text()
+//      },
+//      function(data, textStatus) {
+//          files = data.files;
+//          $.link.fileTmpl("#tablebody", files);
+//          templ(data.folders, files);
+//      });
+//  });
+
+    $("#tbodyFiles textarea").live("change", function() {
+//      alert("hello");
+        $(this).parent().children("button").text("Update");
+        $(this).parent().children("button").removeAttr("disabled");
+        $(this).parent().children("button").attr("class", "btn btn-warning");
+    });
+
+    $("#tbodyFiles button").live("click", function() {
+        $.post("/admin/imgbrowser/updatedescription",
         {
-            newdir: $(this).text()
+            filename: $(this).attr("id"),
+            description: $(this).parent().children("textarea").val()
         },
         function(data, textStatus) {
-            templ(data.folders, data.files);
+            if(data != 1)
+                alert("Someting went wrong:-("+data);
         });
-    });
-
-    $("#tablebody #tarea").live("click", function() {
-        $(this).text("Hello World");
-        $(this).parent().children("#button").text("Update");
-        $(this).parent().children("#button").removeAttr("disabled");
-    });
-
-    $("#tablebody #button").live("click", function() {
-        alert($(this).attr("data-filename"));
         $(this).attr("disabled", "disabled");
+        $(this).text("Updated");
+        $(this).attr("class", "btn btn-info");
     });
+
+    function browserViewModel() {
+        var self = this;
+        self.folders = ko.observableArray(initialFolders);
+        self.files = ko.observableArray(initialFiles);
+
+//      self.uploadDescription = function(desc) {
+//          alert($("#tbodyFiles textarea").val());
+//          $.post("/admin/imgbrowser/updatedescription",
+//          { 
+//              filename: desc.name, 
+//              description: $("#tbodyFiles textarea").val()
+//          },
+//          function(data, textStatus) {
+//              if(data != 1)
+//                  alert("Someting went wrong:-("+data);
+//          });
+//      };
+        self.changeDir = function(folder) {
+            $.post("/admin/imgbrowser/changedir",
+            { newdir: folder.name },
+            function(content) { 
+                self.folders(content.folders);
+                self.files(content.files);
+            });
+        };
+    }
+
+    ko.applyBindings(new browserViewModel());
 
 </script>
 

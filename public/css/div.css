@@ -67,3 +67,17 @@
 .comment {
     padding-left: 2em;
 }
+
+/*
+ * ---- image-gallery CSS ----
+ */
+
+.gallery-container {
+    background-color: white;
+}
+
+.comment-box {
+    display: block;
+    margin: 1em;
+    width: 250px; /* Må også settet i /js/bootstrap-image-gallery.min.js*/
+}

@@ -22,6 +22,7 @@ sub startup {
   $r->get('/video')->to('home#video');
   $r->get('/omoss')->to('home#omoss');
   $r->get('/kart')->to('home#kart');
+  $r->post('/getimgdescription')->to('home#getImgDescription');
   $r->get('/albums')->to('album#index');
   $r->get('/album')->to('album#album');
   $r->get('/error')->to('error#index');
@@ -44,6 +45,7 @@ sub startup {
   $r->post('/admin/editor/uploadHtml')->to('admin-editor#uploadHtml');
   $r->get('/admin/imgbrowser')->to('admin-imgbrowser#index');
   $r->post('/admin/imgbrowser/changedir')->to('admin-imgbrowser#changeDir');
+  $r->post('/admin/imgbrowser/updatedescription')->to('admin-imgbrowser#updateDescription');
 }
 
 1;

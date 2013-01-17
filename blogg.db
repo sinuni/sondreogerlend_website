@@ -8,11 +8,12 @@ CREATE TABLE element(
 );
 
 CREATE TABLE image(
-    id      SERIAL PRIMARY KEY,
-    name    varchar(50) NOT NULL,
-    date    date NOT NULL,
-    tag     varchar(100),
-    travel  varchar(100)
+    id          SERIAL PRIMARY KEY,
+    name        varchar(50) NOT NULL,
+    date        date NOT NULL,
+    tag         varchar(100),
+    travel      varchar(100),
+    description varchar(300)
 );
 
 CREATE TABLE video(

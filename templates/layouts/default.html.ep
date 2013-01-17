@@ -110,7 +110,7 @@
               <div style="padding-right: 1em;">
                 <div class="bs-docs-example">
                 <a href="http://www.amfibi.no" target="_blank">
-                  <img src="/images/sponsorer/amfibi.jpg"></img>
+                  <img src="/images/sponsorer/amfibi.jpg"/>
                 </a>
                 <!--<a href="http://www.vffsk.no/">
                   <img style="padding-top: 30px" src="/images/sponsorer/fsk.jpg"></img>

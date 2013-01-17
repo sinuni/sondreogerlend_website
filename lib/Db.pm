@@ -2,6 +2,7 @@ package Db;
 
 use DBI;
 use utf8;
+use Encode;
 
 my $dbh;
 
@@ -131,11 +132,48 @@ sub getImages {
     return $images;
 }
 
+sub getImgDescriptions {
+    die "getImgDescription takes two arguments, \$travel and \$tag\n" unless @_ == 2;
+    my ($travel, $tag) = @_;
+
+    my $sth = $dbh->prepare("SELECT name, description FROM image WHERE travel='$travel' and tag='$tag'");
+    $sth->execute or die "Cannot execute statment: $DBI::errstr\n";
+
+    my $descriptions = {};
+    while ( my ($name, $description) = $sth->fetchrow_array()) {
+        $descriptions->{$name} = $description;
+    }
+    return $descriptions;
+}
+
+sub updateImgDescription {
+    die "updateImgDescription takes two arguments, \$imgname and \$newdesc\n" unless @_ == 2;
+    my ($imgname, $newdesc) = @_;
+    print "$imgname and $newdesc\n";
+    my $sth = $dbh->prepare("UPDATE image SET description='$newdesc' WHERE name='$imgname'")
+        or die "Cannot prepare statment: $DBI::errstr\n";
+
+    $sth->execute
+        or die "Cannot execute statment: $DBI::errstr\n";
+}
+
+sub getImageDescription {
+    die "getImgDescription takes two arguments, \$travel and \$filename\n" unless @_ == 2;
+    my ($travel, $filename) = @_;
+
+    my $sth = $dbh->prepare("SELECT description FROM image WHERE name='$filename' and travel='$travel'");
+    $sth->execute or die "Cannot execute statment: $DBI::errstr\n";
+
+    my $desc = Encode::decode('UTF-8', $sth->fetchrow_array());
+
+    return $desc;
+}
+
 sub getImagesFromTag {
     die "getImgaesFromTag takes one argument, \$tag\n" unless @_ == 1;
     my $tag = shift;
 
-    my $sth = $dbh->prepare("SELECT name, date, tag, travel FROM image WHERE tag='$tag'");
+    my $sth = $dbh->prepare("SELECT name, date, tag, travel FROM image WHERE tag='$tag' order by name asc");
     $sth->execute or die "Cannot execute statment: $DBI::errstr\n";
 
     my $images = {};
