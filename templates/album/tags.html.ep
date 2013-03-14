@@ -1,0 +1,29 @@
+% layout 'default';
+% title 'Albums';
+
+<h2 style="padding-bottom: 1em"><%= $travel %></h2>
+<ul class="thumbnails">
+% foreach my $tag ( @$tags ) {
+  <li class="span1.5">
+    <a rel="gallery" href="/album?tag=<%= $tag %>" class="thumbnail">
+      <img  src="/images/<%= $travel %>/<%= $tag %>/album_cover/cover_image.jpg"/>
+      <div class="box">
+        <h4><%= $tag %></h4>
+      </div>
+    </a>
+  </li>
+% }
+</ul>
+
+<style type="text/css">
+.box {
+    color: black;
+    text-align: center;
+}
+a:hover {
+    text-decoration: none;
+}
+</style>
+
+<script src="/js/jquery-1.7.2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
