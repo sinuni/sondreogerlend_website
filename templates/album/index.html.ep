@@ -1,12 +1,13 @@
 % layout 'default';
 % title 'Albums';
 
+<h2 style="padding-bottom: 1em">Bilde album</h2>
 <ul class="thumbnails">
-% foreach my $tag (keys %$images) {
+% foreach my $travel (keys %$images) {
   <li class="span1.5">
-    <h4><%= $tag %></h4>
-    <a rel="gallery" href="/album?tag=<%= $tag %>" class="thumbnail">
-        <img  src="/images/<%= $images->{$tag}->[1]->{'travel'} %>/<%= $tag %>/thumbs/thumb_<%= $images->{$tag}->[1]->{'name'} %>"/>
+    <h4><%= $travel %></h4>
+    <a rel="gallery" href="/tags?travel=<%= $travel %>" class="thumbnail">
+        <img  src="/images/<%= $travel%>/<%= $images->{$travel}->[0]->{'tag'} %>/thumbs/thumb_<%= $images->{$travel}->[0]->{'name'} %>"/>
     </a>
   </li>
 % }

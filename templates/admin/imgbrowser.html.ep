@@ -3,32 +3,94 @@
 
 <h1>Hello World</h1>
 <ul class="breadcrumb">
-  <li>Folder</li>
+  <li>/</li>
+<!-- ko foreach: path -->
+  <li data-bind="text: $data"></li>
+  <li>/</li>
+<!-- /ko -->
 </ul>
+<div class="alert alert-danger" data-bind="visible: checkedFiles().length > 0">
+  <strong><span data-bind="text: checkedFiles().length + ' file(s) will be deleted: '"></span></strong>
+  <span data-bind="foreach: checkedFiles">
+    <span data-bind="text: $data"></span>
+  </span>
+</div>
+
+<form id="myform" method="post" action="/admin/imgbrowser/uploadimages" enctype="multipart/form-data">
+  <button id="addfolder-button" type="button" class="btn btn-success">
+    <i class="icon-plus icon-white"></i>
+    <span>Add folder</span>
+  </button>
+  <span class="btn btn-success fileinput-button">
+    <i class="icon-plus icon-white"></i>
+    <span>Add files...</span>
+    <input type="file" name="imagefiles[]" data-bind="event: { change: addUploadFiles }" disabled multiple/>
+  </span>
+  <button id="submitbutton" type="submit" class="btn btn-primary" data-bind="enable: ifFilesForUpload">
+    <i class="icon-upload icon-white"></i>
+    <span>Start upload</span>
+  </button>
+  <button type="reset" class="btn btn-warning" data-bind="click: emptyUploadFiles">
+    <i class="icon-ban-circle icon-white"></i>
+    <span>Cancel upload</span>
+  </button>
+  <button id="delete-button" type="button" class="btn btn-danger">
+    <i class="icon-trash icon-white"></i>
+    <span>Delete</span>
+  </button>
+  <input id="travel" type="hidden" name="travel" data-bind="value: path()[1]"/>
+  <input id="tag" type="hidden" name="tag" value="hei" data-bind="value: path()[2]"/>
+</form>
+
+<div id="progressbox" class="progress progress-striped active" style="display: none">
+  <div id="progressbar" class="bar" style="width: 0%"></div>
+</div>
+
+<table class="table table-striped">
+  <tbody id="tbodyUploadFiles" data-bind="foreach: uploadFiles">
+    <tr>
+      <td><span data-bind="text: name"></span></td>
+      <td><span data-bind="text: size"></span></td>
+    </tr>
+  </tbody>
+</table>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <td>Name</td>
       <td>Description</td>
+      <td>Operations</td>
       <td>Size</td>
+      <td><input id="allcheckbox" type="checkbox"/></td>
     </tr>
   </thead>
   <tbody id="tablebody" data-bind="foreach: folders">
     <tr>
-      <td><a data-bind="text: name, click: $root.changeDir"></a></td>
+      <td><a data-bind="text: name, click: $root.changeDirByFolder"></a></td>
+      <td></td>
       <td></td>
       <td>50</td>
-    <tr>
+      <td></td>
+    </tr>
   </tbody>
   <tbody id="tbodyFiles" data-bind="foreach: files">
-    <tr>
-      <td><div data-bind="if: type == 'image'"><img data-bind="attr: { src: thumb }"/></div><div data-bind="text: name"></div</td>
+    <tr data-bind="attr: { id: name}">
+      <td><div data-bind="if: type == 'image'"><img data-bind="attr: { src: thumb }"/></div><div class="name" data-bind="text: name"></div></td>
       <td><div data-bind="if: type == 'image'">
         <textarea id="tarea" data-bind="text: description"></textarea><br/>
         <button class="btn btn-info" data-bind="attr: { id: name }" disabled>Updated</button>
       </div></td>
+      <td><div data-bind="if: type == 'image'">
+        <select class="operationSelector" data-bind="attr: { id: name }">
+          <option value="initial" selected>Choose an operation</option>
+          <option value="setTravelCover">Set as travel cover</option>
+          <option value="setAlbumCover">Set as album cover</option>
+        </select>
+      </div></td>
       <td>50</td>
-    <tr>
+      <td><div data-bind="if: type == 'image'"><input class="checkbox" type="checkbox"/></div></td>
+    </tr>
   </tbody>
 </table>
 
@@ -38,24 +100,7 @@
 <script src="/js/jquery.observable.js"></script>
 <script src="/js/jquery.views.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-
-<script id="folderTemplate" type="text/x-jsrender">
-    <tr>
-      <td><a id="folder" class="mappe">{{>name}}</a></td>
-      <td></td>
-      <td>50</td>
-    </tr>
-</script>
-
-<script id="fileTemplate" type="text/x-jsrender">
-    <tr>
-      <td>{{: ~showType(type, thumb) }}{{>name}}</td>
-      <td>{{if type == 'image'}}
-        <textarea id="tarea" data-link="description">{{:description}}</textarea><br/><button id="button" type="button" data-filename="{{:name}}" disabled>Updated</button>
-      {{/if}}</td>
-      <td>50</td>
-    </tr>
-</script>
+<script src="/js/jquery.form.js"></script>
 
 <script>
     var initialFolders = [
@@ -68,43 +113,58 @@
         { name: "<%= $file->{'name'} %>" },
     % }
     ];
-
-//  $.templates({
-//      fileTmpl: "#folderTemplate"
-//  });
+    var mymodel =  new browserViewModel();
 
     $(document).ready(function() {
-//      templ(folders, files);
+        mymodel.updateDir();
+        prepareForm();
     });
 
-//  function templ(fol, fil) {
-//      $("#tablebody").html(
-//          $("#folderTemplate").render(fol) +
-//          $("#fileTemplate").render(fil, {
-//              showType:function(type, thumb){
-//                  if(type === "image") {
-//                      return '<img src="'+thumb+'"/><br/>';
-//                  } else {
-//                      return "";
-//                  }
-//              }
-//          })
-//      );
-//  }
+/*
+ *  ------ Operation functions ------
+ */
 
-//  $("#tablebody #folder").live("click", function() {
-//      alert("se: "+$(this).text());
-//      var name = $(this).text();
-//      $.post("/admin/imgbrowser/changedir",
-//      {
-//          newdir: $(this).text()
-//      },
-//      function(data, textStatus) {
-//          files = data.files;
-//          $.link.fileTmpl("#tablebody", files);
-//          templ(data.folders, files);
-//      });
-//  });
+   $(".operationSelector").live("change", function() {
+        var selected = $(this).find("option:selected").attr('value');
+        var filename = $(this).attr("id");
+
+        if(selected === "setTravelCover")
+            setTravelCover(filename);
+        if(selected === "setAlbumCover")
+            setAlbumCover(filename);
+
+        $(this).find("option:nth-child(1)").attr('selected', 'selected');
+   });
+
+   function setTravelCover(filename) {
+//     alert(mymodel.path()[1]);
+        $.post("/admin/imgbrowser/settravelcover",
+        {
+            travel: mymodel.path()[1],
+            tag: mymodel.path()[2],
+            filename: filename
+        },
+        function() {
+
+        });
+   }
+
+   function setAlbumCover(filename) {
+//     alert(filename);
+        $.post("/admin/imgbrowser/setalbumcover",
+        {
+            travel: mymodel.path()[1],
+            tag: mymodel.path()[2],
+            filename: filename
+        },
+        function() {
+
+        });
+   }
+
+/*
+ *  ------ Update description functions ------
+ */
 
     $("#tbodyFiles textarea").live("change", function() {
 //      alert("hello");
@@ -120,7 +180,9 @@
             description: $(this).parent().children("textarea").val()
         },
         function(data, textStatus) {
-            if(data != 1)
+            if(data.tolong)
+                alert(data.message);
+            else if(data != 1)
                 alert("Someting went wrong:-("+data);
         });
         $(this).attr("disabled", "disabled");
@@ -128,34 +190,153 @@
         $(this).attr("class", "btn btn-info");
     });
 
+/*
+ *  ------ Delete files functions ------
+ */
+
+    $("#delete-button").live("click", function() {
+        $.post("/admin/imgbrowser/removeimages",
+        {
+            travel: mymodel.path()[1],
+            tag: mymodel.path()[2],
+            images: mymodel.checkedFiles()
+        }, function() {
+            mymodel.checkedFiles([]);
+            mymodel.updateDir();
+        });
+    });
+    $(".checkbox").live("change", function() {
+        var name = $(this).closest("tr").attr('id');
+        if($(this).attr('checked')) {
+            mymodel.checkedFiles.push(name);
+        } else {
+            mymodel.checkedFiles.remove(name);
+        }
+    });
+    $("#allcheckbox").live("change", function() {
+        if($(this).attr('checked')) {
+            $(".checkbox").each(function() {
+                var name = $(this).closest("tr").attr('id');
+                $(this).attr('checked', '');
+                mymodel.checkedFiles.push(name);
+            });
+        } else {
+            $(".checkbox").each(function() {
+                var name = $(this).closest("tr").attr('id');
+                $(this).removeAttr('checked');
+                mymodel.checkedFiles.remove(name);
+            });
+        }
+    });
+    $("#addfolder-button").live("click", function() {
+        var newfolder = prompt("Enter folder name: ");
+        $.post("/admin/imgbrowser/addfolder",
+        {
+            name: newfolder,
+            path: mymodel.path()
+        },
+        function() {
+           mymodel.updateDir(); 
+        });
+    });
+
+/*
+ *  ------ Upload files functions ------
+ */
+
+    function prepareForm() {
+        var progressbox = $("#progressbox");
+        var progressbar = $("#progressbar"); 
+        var submitbutton = $("#submitbutton"); 
+
+        $("#myform").ajaxForm({
+            beforeSend: function() {
+                submitbutton.attr('disabled', '');
+                progressbox.slideDown();
+     },
+            uploadProgress: function(event, position, total, percentComplete) {
+                progressbar.width(percentComplete+'%');
+            },
+            complete: function(response) {
+                $("#myform").resetForm();
+                submitbutton.removeAttr('disabled');
+                progressbox.slideUp();
+                mymodel.emptyUploadFiles();
+                mymodel.updateDir();
+            }
+        });
+    }
+
+/*
+ *  ------ KnockOut functions ------
+ */
+    function toPathString(myArray) {
+        var path = "/";
+        $.each(myArray, function(i, item) {
+            path += item + "/";
+        });
+        return path;
+    }
+
+    function changePath(path, newFolder) {
+        if(newFolder === "..")
+            path.pop();
+        else
+            path.push(newFolder);
+    }
+
     function browserViewModel() {
         var self = this;
+        self.path = ko.observableArray(["images"]);
         self.folders = ko.observableArray(initialFolders);
         self.files = ko.observableArray(initialFiles);
+        self.uploadFiles = ko.observableArray([]);
+        self.checkedFiles = ko.observableArray([]);
 
-//      self.uploadDescription = function(desc) {
-//          alert($("#tbodyFiles textarea").val());
-//          $.post("/admin/imgbrowser/updatedescription",
-//          { 
-//              filename: desc.name, 
-//              description: $("#tbodyFiles textarea").val()
-//          },
-//          function(data, textStatus) {
-//              if(data != 1)
-//                  alert("Someting went wrong:-("+data);
-//          });
-//      };
-        self.changeDir = function(folder) {
+        self.changeDirByFolder = function(folder) {
+            changePath(self.path, folder.name);
+            self.updateDir();
+//          alert(toPathString(self.path()));
+        };
+
+         self.updateDir = function() {
             $.post("/admin/imgbrowser/changedir",
-            { newdir: folder.name },
+            { newpath: toPathString(self.path()) },
             function(content) { 
                 self.folders(content.folders);
                 self.files(content.files);
             });
+            var path = self.path();
+            if(path[0] === "images" && typeof path[2] !== 'undefined' && typeof path[3] === 'undefined')
+                $(".fileinput-button, .fileinput-button > input").removeAttr('disabled');
+            else
+                $(".fileinput-button, .fileinput-button > input").attr('disabled', '');
+         };
+         self.ifFilesForUpload = ko.computed(function() {
+            return self.uploadFiles() > 0 ? true : false;
+         }, self);
+
+        self.addUploadFiles = function(data, event) {
+            self.uploadFiles(event.target.files);
+            $("#submitbutton").removeAttr('disabled');
         };
+        self.emptyUploadFiles = function() {
+            self.uploadFiles([]);
+        };
+//      self.addFileToCheckedFiles = function(data, event) {
+//          return ko.computed(function() {
+//              if(self.checkedFiles().indexOf(data.name) !== -1) {
+//                  self.checkedFiles.push(data.name);
+//                  return false;
+//              }
+//              else {
+//                  self.checkedFiles.pop(data.name);
+//                  return false;
+//              }
+//          }, self)};
     }
 
-    ko.applyBindings(new browserViewModel());
+    ko.applyBindings(mymodel);
 
 </script>
 

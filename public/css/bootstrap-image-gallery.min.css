@@ -14,7 +14,7 @@
 .modal-fullscreen{border:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;background:transparent;overflow:hidden;}
 .modal-fullscreen.modal-loading{border:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
 .modal-fullscreen .modal-body{padding:0;}
-.modal-fullscreen .modal-header,.modal-fullscreen .modal-footer{position:absolute;top:0;right:0;left:0;background:transparent;border:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;opacity:0;z-index:2000;}
+.modal-fullscreen .modal-header,.modal-fullscreen .modal-footer{position:absolute;top:0;right:250px;left:0;background:transparent;border:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;opacity:0;z-index:2000;}
 .modal-fullscreen .modal-footer{top:auto;bottom:0;}
 .modal-fullscreen .close,.modal-fullscreen .modal-title{color:#fff;text-shadow:0 0 2px rgba(33, 33, 33, 0.8);}
 .modal-fullscreen .modal-header:hover,.modal-fullscreen .modal-footer:hover{opacity:1;}

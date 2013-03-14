@@ -28,29 +28,35 @@ sub uploadHtml {
     my $travel = $self->param('travel');
     my $html = $self->param('html');
     my $name = $self->param('name');
-    
-    $self->app->log->debug("---tag: $tag");
-    $self->app->log->debug("---travel: $travel");
-    $self->app->log->debug("---html: $html");
-    $self->app->log->debug("---name: $name");
+    my $lat = $self->param('latitude');
+    my $lng = $self->param('longitude');
 
     $tag = "notag" if $tag eq "";
     $travel = "notravel" if $travel eq "";
 
     my $replace = "$travel/$tag/posts";
     $html =~ s/editor_temp/$replace/g;
-    $self->app->log->debug("---html-etter: $html");
+
+    $self->app->log->debug("tag: $tag travel: $travel name: $name lat: $lat lng: $lng html: $html");
 
     Db::connect('blogg', 'tiro', 'kokid8Ei');
-    Db::addPost(\$name, \$html, $tag, $travel);
+    Db::addPost(\$name, \$html, $tag, $travel, $lat, $lng);
     Db::setSelectedTravel($travel);
     Db::disconnect();
 
     $commands->create_dir("public/images/$travel/$tag/posts/") 
                 unless -d "public/images/$travel/$tag/posts/";
+    
+#    Copy and resize images
+    $self->app->log->debug(`find public/images/editor_temp/ -maxdepth 1 -iname *.jpg`);
+    foreach my $file ( `find public/images/editor_temp/ -maxdepth 1 -iname *.jpg` ) {
+        chomp $file;
+        `convert $file -resize '720>' -quality 92 $file`;
+        `cp $file public/images/$travel/$tag/posts/`;
+    }
     `cp public/images/editor_temp/* public/images/$travel/$tag/posts/`;
 
-    $self->redirect_to('/admin/editor');
+    $self->redirect_to('/');
 }
 
 sub uploadImage {
@@ -66,4 +72,5 @@ sub uploadImage {
 
     $self->render('/admin/editor/ajax_upload_result', file_name => "/images/editor_temp/$file", result => 'virk', resultcode => 'worded');
 }
+
 1;

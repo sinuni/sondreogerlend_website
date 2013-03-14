@@ -1,6 +1,7 @@
 % layout 'simple';
 % title 'Editor';
-
+<div id="map_canvas" style="width: 400px; height: 300px"></div>
+<h3 id="geoip">hei</h3>
 <h3>Selected travel:</h3>
 <form method="post" action="/admin/newTravel">
     <input type="text" name="newtravel" placeholder="New travel"/>
@@ -15,16 +16,54 @@
           <option><%= $travel %></option>
         % }
     % }
-</select>
-  <input type="text" name="tag" placeholder="Tag"/><br/>
+  </select>
+  <input id="tagBox" type="text" name="tag" placeholder="Tag"/><br/>
   <input type="text" id="nameBox" placeholder="Overskrift" onkeyup="convertUTF8();"/>
   <input type="hidden" id="nameHidden" name="name" value=""/>
-  <textarea name="html" rows="40" style="width:100%">Some text</textarea>
+  <input type="hidden" id="latHidden" name="latitude" value=""/>
+  <input type="hidden" id="lngHidden" name="longitude" value=""/>
+  <textarea id="htmlBox" name="html" rows="40" style="width:100%"></textarea>
   <input type="submit" value="Post"/>
 </form>
 
 <script src="/js/tiny_mce/tiny_mce.js"></script>
 <script src="/js/html-entities.js"></script>
+<script src="/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE4PS7uKwsFbebDuzD4rZ67gcmqKJObj8&sensor=true"></script>
+<!--<script src="/js/geoip.js"></script>-->
+<script>
+var marker;
+$(document).ready(function() {
+    $.get("http://freegeoip.net/json/",
+    function(data) {
+        $("#geoip").text("Latitude: "+data.latitude+" Longitude: "+data.longitude);
+        drawMap(data.latitude, data.longitude);
+        $("#latHidden").val(data.latitude);
+        $("#lngHidden").val(data.longitude);
+
+        google.maps.event.addListener(marker, 'dragend', function(evt){
+            $("#geoip").text("Latitude: "+evt.latLng.lat().toFixed(4)+" Longitude: "+evt.latLng.lng().toFixed(4));
+            $("#latHidden").val(evt.latLng.lat().toFixed(4));
+            $("#lngHidden").val(evt.latLng.lng().toFixed(4));
+        });
+    });
+});
+
+function drawMap(lat, lng) {
+    var pos = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+      center: new google.maps.LatLng(lat, lng),
+      zoom: 8,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    marker = new google.maps.Marker({
+        position: pos,
+        draggable: true,
+        map: map, 
+    });
+}
+</script>
 <script>
     function setSelectedTravel() {
         var hidden = document.getElementById('selectedTravel');

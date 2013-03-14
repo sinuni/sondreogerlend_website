@@ -16,6 +16,15 @@ CREATE TABLE image(
     description varchar(300)
 );
 
+CREATE TABLE image_comment(
+    id      SERIAL PRIMARY KEY,
+    imageid integer NOT NULL REFERENCES image(id) ON DELETE CASCADE,
+    name    varchar(50) NOT NULL,
+    text    varchar(300) NOT NULL,
+    date    date NOT NULL,
+    time    time NOT NULL
+);
+
 CREATE TABLE video(
     id      SERIAL PRIMARY KEY,
     videoid varchar(50) NOT NULL,
@@ -27,13 +36,15 @@ CREATE TABLE video(
 );
 
 CREATE TABLE post(
-    id      SERIAL PRIMARY KEY,
-    name    varchar(50) NOT NULL,
-    html    text NOT NULL,
-    date    date NOT NULL,
-    tag     varchar(100),
-    travel  varchar(100),
-    time    time NOT NULL
+    id          SERIAL PRIMARY KEY,
+    name        varchar(50) NOT NULL,
+    html        text NOT NULL,
+    date        date NOT NULL,
+    tag         varchar(100),
+    travel      varchar(100),
+    time        time NOT NULL,
+    latitude    real,
+    longitude   real
 );
 
 CREATE TABLE post_comment(

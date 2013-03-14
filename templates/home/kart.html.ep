@@ -1,3 +1,145 @@
 % layout 'default';
 % title 'Home';
-<iframe width="650" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?ll=-14.689881,-146.25&amp;spn=34.979575,39.506836&amp;t=h&amp;z=5&amp;msa=0&amp;msid=214375014771418955441.0004cdd951e52c147cce2&amp;output=embed"></iframe><br /><small>Vis <a href="https://maps.google.com/maps/ms?ll=-14.689881,-146.25&amp;spn=34.979575,39.506836&amp;t=h&amp;z=5&amp;msa=0&amp;msid=214375014771418955441.0004cdd951e52c147cce2&amp;source=embed" style="color:#0000FF;text-align:left">Vår posisjon</a> i et større kart</small>
+
+<h1 data-bind="text: travel"></h1>
+<div id="map_canvas" style="width: 100%; height: 600px;"></div>
+                <h2 style="display: inline" data-bind="text: name"></h2> <span data-bind="text: date"></span>
+                <div data-bind="html: html"></div>
+                <a onclick="toggle(comments);" data-bind="style: {display: ifPost}"><span data-bind="text: numComments"></span> har kommentert</a>
+                <a onclick="toggle(commentBox);" data-bind="style: {display: ifPost}">Kommenter</a>
+                <div id="comments" style="display: none">
+                  <div class="comment" data-bind="foreach: comments">
+                    <p><div style="display: block"><h5 style="display: inline" data-bind="text: name"></h5> <span data-bind="text: http_date"></span></div>
+                    <div data-bind="text: comment"></div></p>
+                  </div>
+                </div>
+                <form id="commentBox" action="/comment/post" method="post" class="form-horizontal" style="display:none">
+                  <div class="control-group">
+                    <input type="text" name="name" placeholder="Navn"/>
+                  </div>
+                  <div class="control-group">
+                    <textarea id="comment" name="comment" rows="3" maxlength="10000" style="resize:none; width:60%"></textarea>
+                  </div>
+                  <div class="control-group">
+                    <input type="hidden" name="postid" data-bind="attr: { value: id }"/>
+                    <input type="submit" value="Kommenter" class="btn btn-primary"/>
+                  </div>
+                </form>
+
+<script src="/js/jquery-1.7.2.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE4PS7uKwsFbebDuzD4rZ67gcmqKJObj8&sensor=false"></script>
+<script src="/js/knockout-2.2.1.js"></script>
+<script>
+$(document).ready(function() {
+    initialize();
+});
+var mymodel = new postViewModel();
+mymodel.travel('<%= $travel %>');
+
+/*
+ *  ------ Google Maps functions ------
+ */
+
+function initialize() {
+    var travelCoordinates = [
+    % foreach my $latLng ( @{$mapData->{latLngs}} ) {
+        % if(defined $latLng->{lat}) {
+        new google.maps.LatLng(<%= $latLng->{lat} %>, <%= $latLng->{lng} %>),
+        % }
+    % }
+    ];
+    var postData = [
+    % foreach my $post ( @{$mapData->{posts}} ) {
+        { 
+            id: <%= $post->{id} %>,
+            name: "<%= $post->{name} %>"
+        },
+    % }
+    ];
+    var myLatLng = new google.maps.LatLng(0, 0);
+    var mapOptions = {
+        zoom: 3,
+        center: myLatLng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < travelCoordinates.length; i++) {
+                    bounds.extend(travelCoordinates[i]);
+    }
+    map.fitBounds(bounds);
+    var travelPath = new google.maps.Polyline({
+        path: travelCoordinates,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+
+    travelPath.setMap(map);
+
+    for(var i=0; i < travelCoordinates.length; i++) {
+//    var id = postData[i].id;
+        var marker = new google.maps.Marker({
+            position: travelCoordinates[i],
+            map: map,
+            title: ""+i
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+            var i = parseInt(this.title);
+            $.post("/kart/getpost",
+            { postid: postData[i].id },
+            function(post) {
+                mymodel.id(postData[i].id);
+                mymodel.name(post.name); 
+                mymodel.html(post.html); 
+                mymodel.date(post.http_date); 
+                mymodel.comments(post.comments);
+            });
+        });
+    }
+}
+
+/*
+ *  ------ Post functions ------
+ */
+
+
+function toggle(id) {
+    var element = id;
+
+    if(element.style.display == "none") {
+        element.style.display = "block";
+    } else {
+        element.style.display = "none";
+    }
+}
+
+function postViewModel() {
+    var self = this;
+    self.id = ko.observable();
+    self.name = ko.observable();
+    self.html = ko.observable();
+    self.date = ko.observable();
+    self.travel = ko.observable();
+    self.comments = ko.observableArray([]);
+
+    self.numComments = ko.computed(function() {
+        return self.comments().length;
+    }, self);
+    self.ifPost = ko.computed(function() {
+        return typeof self.id() !== 'undefined' ? 'inline' : 'none';
+    }, self);
+
+//  self.changeDirByFolder = function(folder) {
+//      changePath(self.path, folder.name);
+//      self.updateDir();
+//          alert(toPathString(self.path()));
+//  };
+}
+
+ko.applyBindings(mymodel);
+
+</script>

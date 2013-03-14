@@ -5,6 +5,7 @@
     <meta charset="UTF-8"/> 
     <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/scrollbar.css">
     <link rel="stylesheet" href="/css/div.css">
     <link rel="stylesheet" href="/css/bootstrap-image-gallery.min.css">
     <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
@@ -16,40 +17,11 @@
   </head>
   <body>
 
-    <div id="fb-root"></div>
-    <script>
-      window.fbAsyncInit = function() {
-        // init the FB JS SDK
-        FB.init({
-          appId      : '', // App ID from the App Dashboard
-          channelUrl : '//www.sondreogerlend.no', // Channel File for x-domain communication
-          status     : true, // check the login status upon init?
-          cookie     : true, // set sessions cookies to allow your server to access the session?
-          xfbml      : true  // parse XFBML tags on this page?
-        });
-
-        // Additional initialization code such as adding Event Listeners goes here
-
-      };
-
-      // Load the SDK's source Asynchronously
-      // Note that the debug version is being actively developed and might 
-      // contain some type checks that are overly strict. 
-      // Please report such bugs using the bugs tool.
-      (function(d, debug){
-         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement('script'); js.id = id; js.async = true;
-         js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
-         ref.parentNode.insertBefore(js, ref);
-       }(document, /*debug*/ false));
-    </script>
-    <script src="//connect.facebook.net/en_US/all.js"></script>
     <div class="container">
       <div class="row">
         <div class="span1">
         <i class="sidecomment">"Turblogg for backpackere, friluftsfolk og livsnytere"</i>
-        <ul class="nav nav-list sidebar-nav-fixed well nav-inverse" style="width: 80px">
+        <!--<ul class="nav nav-list sidebar-nav-fixed well nav-inverse" style="width: 80px">
           <li class="nav-header">2012</li>
           <li><a href="/?year=2012&month=nov">November</a></li>
           <li><a href="/?year=2012&month=des">Desember</a></li>
@@ -59,7 +31,7 @@
           <li><a href="/?year=2013&month=mar">Mars</a></li>
           <li><a href="/?year=2013&month=apr">April</a></li>
           <li><a href="/?year=2013&month=may">Mai</a></li>
-        </ul>
+        </ul>-->
         </div>
       </div>
         <div class="span10 offset1" style="background: white;">
@@ -89,10 +61,12 @@
           <div class="navbar" style="margin-top:-1.4em">
             <div class="navbar-inner">
               <ul class="nav">
-                <li class=""><a href="/">Hjem</a>
-                <li class=""><a href="/omoss">Om oss</a>
-                <li class=""><a href="/albums">Bilder</a>
-                <li class=""><a href="/kart">Kart</a>
+                <li class=""><a href="/">Hjem</a></li>
+                <li class=""><a href="/reiser">Reiser</a></li>
+                <li class=""><a href="/albums">Bilder</a></li>
+                <li class=""><a href="/omoss">Om oss</a></li>
+                <li class=""><a href="/kart">Kart</a></li>
+                <li class=""><a href="http://www.facebook.com/sondreogerlend">Facebook</a></li>
               </ul>
             </div>
           </div>

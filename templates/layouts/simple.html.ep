@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-image-gallery.min.css">
     <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/css/simple.css">
   </head>
   <body>
     <div class="container-fluid">

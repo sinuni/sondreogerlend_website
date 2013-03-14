@@ -1,16 +1,15 @@
 % layout 'default';
 % title 'Album';
 
+<h2 style="padding-bottom: 1em"><%= $tag %></h2>
 <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
     <div class="thumb-container">
-    % foreach my $date (sort {$b cmp $a} keys %$images) {
-        % foreach my $elm ( @{$images->{$date}} ) {
-            <a rel="gallery" title="<%= $elm->{'travel'} %>-<%= $elm->{'name'} %>" href="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/<%= $elm->{'name'} %>"
+        % foreach my $elm ( @$images ) {
+            <a rel="gallery" title="<%= $elm->{'id'} %>-<%= $elm->{'name'} %>" href="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/<%= $elm->{'name'} %>"
                     onClick="_gaq.push(['_trackEvent', 'Image_Album', 'Click', '<%= $elm->{'name'} %>']);">
                 <img class="thumb-img"  src="/images/<%= $elm->{'travel'} %>/<%= $elm->{'tag'} %>/thumbs/thumb_<%= $elm->{'name'} %>"/>
             </a>
         % }
-    % }
     </div>
 </div>
 
@@ -27,7 +26,15 @@
             <div class="modal-image"></div>
             </td>
             <td valign="top" style="padding: 0px">
-            <div class="comment-box"><p id="imgdescription">hello</p></div>
+            <div id="jeg er viktig" class="comment-box">
+              <div class="comments">
+              </div>
+              <div class="comment-field">
+                <div class="form-inline"><input id="inputname" type="text" style="width: 130px" placeholder="Navn"/>
+                <input type="submit" value="Kommenter" id="addcomment-button" class="btn btn-small btn-primary"/>
+                <textarea id="newcomment" rows="3" style="width: 216px; resize: none; margin: 8px 0px 0px 0px" placeholder="Kommentar"></textarea></div>
+              </div>
+            </div>
             </td>
           </tr>
           </tbody></table>
@@ -58,20 +65,53 @@
 <script src="/js/bootstrap-image-gallery.min.js"></script>
 <script>
 
+function updateImgComments(imageid) {
+    $(".comments").empty();
+    $.post("/getimgdescription",
+    { imageid: imageid },
+    function(data, textStatus) {
+        if(data.description)
+            $(".comments").prepend('<blockquote>'+data.description+'</blockquote');
+    });
+    $.post("/getimgcomments",
+    { imageid: imageid },
+    function(comments) {
+        $.each(comments, function(i, comment) {
+            $(".comments").append('<div class="img-comment"><b>'+comment.name+'</b> '+comment.text+' </div>');
+            
+        });
+    });
+}
+
+// Loading new modal image
 $("#modal-title").live("DOMNodeInserted",
     function() {
-        var split = $(this).text().split('-');
-        var travel = split[0];
-        var name = split[1];
-//          alert(travel+name);
-        $.post("/getimgdescription",
-        { imgname: name, travel: travel },
+        var imageid = $(this).text().split('-')[0];
+        updateImgComments(imageid);
+    }
+);
+
+// Add comment button
+$("#addcomment-button").live("click",
+    function() {
+        var imageid = $("#modal-title").text().split('-')[0];
+        var input = $(this).parent().children("#inputname");
+        var textarea = $(this).parent().children("textarea");
+        $.post("/addimgcomment",
+        {
+            imageid: imageid,
+            name: input.val(),
+            comment: textarea.val()
+        },
         function(data, textStatus) {
-            if(data.description)
-                $("#imgdescription").text(data.description);
-            else
-                $("#imgdescription").text("");
+            if(data.tolong)
+                alert(data.message);
+            else if(data != 1)
+                alert("Someting went wrong:-(\n"+data);
         });
+        input.val("");
+        textarea.val("");
+        updateImgComments(imageid);
     }
 );
 

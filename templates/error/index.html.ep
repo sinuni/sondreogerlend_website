@@ -1,4 +1,4 @@
-% layout 'default';
+% layout 'simple';
 % title 'Error';
 
 <div class="alert alert-block alert-error fade in">

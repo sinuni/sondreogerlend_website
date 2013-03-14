@@ -81,6 +81,17 @@ sub uploadVideo {
     $self->redirect_to('/');
 }
 
+sub setActiveTravel {
+    my $self = shift;
+    my $travel = $self->param('travel');
+
+    Db::connect('blogg', 'tiro', 'kokid8Ei');
+    Db::setSelectedTravel($travel);
+    Db::disconnect();
+
+    $self->render(json => "ok");
+}
+
 sub upload {
     my $self = shift;
     my $tag = $self->param('tag');

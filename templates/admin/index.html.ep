@@ -14,10 +14,13 @@
 <form method="get" action="/admin/editor">
     <p><input type="submit" value="Add Post" class="btn btn-primary"/></p>
 </form>
+<form method="get" action="/admin/imgbrowser">
+    <p><input type="submit" value="Image browser" class="btn btn-primary"/></p>
+</form>
 <hr>
 <h3>Selected travel:</h3>
 <form method="post" action="/admin/newTravel">
-<select id="travelSelect" onclick="setSelectedTravel();">
+<select id="travelSelect" onchange="setSelectedTravel();">
   % foreach my $travel (@$travels) {
       % if ($travel eq $selected) {
         <option selected="selected"><%= $travel %></option>
@@ -49,16 +52,26 @@
 <h1 id="test"></h1>
 
 
+<script src="/js/jquery-1.7.2.min.js"></script>
 <script>
 function setSelectedTravel() {
     var hiddenImage = document.getElementById('hiddenImage');
     var hiddenVideo = document.getElementById('hiddenVideo');
     var select = document.getElementById('travelSelect');
+    var travel = select.options[select.selectedIndex].text;
 
-    hiddenImage.value = select.options[select.selectedIndex].text;
-    hiddenVideo.value = select.options[select.selectedIndex].text;
+    hiddenImage.value = travel;
+    hiddenVideo.value = travel;
     var test = document.getElementById('test');
-    test.innerHTML = hiddenImage.value;
+
+    $.post("/admin/setActiveTravel",
+    {
+        travel: travel
+    },
+    function(data, textStatus) {
+        if(data === "ok")
+            test.innerHTML = travel;
+    });
 }
 
 function makeFileList() {
